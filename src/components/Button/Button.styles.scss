@@ -1,0 +1,27 @@
+button{
+    min-width: 200px;
+    padding : 20px 0px;
+    border: none;
+    outline: none;
+    margin-top:10px;
+}
+
+
+.default {
+    background : dodgerblue; 
+    color:white;
+}
+
+
+.inverse {
+    background : black;
+    color: white;
+}
+
+@media (max-width:1099px) and (min-width:300px){
+    button{
+        display: block;
+        width: 100%;
+        margin :10px 0 !important
+    }
+}

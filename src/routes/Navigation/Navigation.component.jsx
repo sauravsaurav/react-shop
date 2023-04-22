@@ -1,23 +1,50 @@
 import "./Navigation.style.scss";
-import {NavLink, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import {motion} from "framer-motion";
 
 
 const Navigation = ()=>{
+    const colors1 = ['#C147E9' , '#810CA8' , '#2D033B','#810CA8','#C147E9'];
+
     return (
         <>
-            <header>
-                <nav className="navigation">
-                    <ul>
-                        <motion.li whileTap={{scale:0.8}} whileHover={{scale:1.2}}><NavLink to="/" className={(props)=> props.isActive ? 'active' : '' }>🏠</NavLink></motion.li>
-                        <motion.li whileTap={{scale:0.8}}  whileHover={{scale:1.2}}><NavLink to="/shop">🛍️</NavLink></motion.li>
-                        <motion.li whileTap={{scale:0.8}}  whileHover={{scale:1.2}}><NavLink to="/cart">🛒</NavLink></motion.li>
+            <div className="container">
+                <header>
+                    <nav className="navigation area">
+                            <ul className="siteName">
+                                <li>
+                                    <motion.span animate={{ color: colors1 }} 
+                                    transition={{
+                                        duration: 5,
+                                        repeat: Infinity 
+                                    }}
+                                    className="press-start"
+                                    >
+                                        &lt; 
+                                        C O D E S K  
+                                        &gt;
+                                    </motion.span>
+                                </li>
+                            </ul>
+                            
+                    </nav>
+                </header>
+                <main className="main-container">
+                    <ul className="circles">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
                     </ul>
-                </nav>
-            </header>
-            <main className="main-container">
-                <Outlet/>
-            </main>
+                    <Outlet/>
+                </main>
+            </div>
         </>
     );
 }

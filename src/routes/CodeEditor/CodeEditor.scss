@@ -1,0 +1,10 @@
+.content{
+    display: flex;
+    position: relative;
+    z-index: 999999999999999;
+    .left-sidebar, .right-sidebar{
+        color : white;
+        font-size: 25px;
+        flex: 50%;
+    }    
+}
