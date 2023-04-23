@@ -3,6 +3,7 @@
     width : 40vw;
     background : white;
     padding: 10px;
+    margin:auto;
     border-radius: 3px;
 
     @media (max-width:830px) {
@@ -27,11 +28,11 @@
         font-weight: bolder;
         color : red;
         font-family: Arial;
-        font-size:13px;
+        font-size:70%;
     }
 
     label{
-        font-size: 14px;
+        font-size: 90%;
         font-weight:bolder;
         display: block;
         font-family: Arial;
