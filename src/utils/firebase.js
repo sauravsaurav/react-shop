@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {GoogleAuthProvider, getAuth  , signInWithPopup} from "firebase/auth";
+import {GoogleAuthProvider, getAuth  , signInWithPopup , signInWithEmailAndPassword} from "firebase/auth";
+import {getFirestore, doc , getDoc , setDoc} from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -25,3 +26,45 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+
+// By this we will be able to manipulate the data in the database
+export const db = getFirestore();
+
+// The actual method for creating the user document.
+export const createUserDocumentFromAuth = async(userAuth) => {
+  // Fetching the user from the database , under the users collection with the id as userAuth.uid, if exists or not
+  const userDocRef = doc(db, "users" , userAuth.uid);
+
+  // Actually getting the userData
+  const userSnapshot = await getDoc(userDocRef);
+  
+  // Check if the data exists or not
+  if(!userSnapshot.exists()){
+    // If not then create one
+    const {displayName , email} = userAuth;
+    const createdAt = new Date();
+
+    try{
+      await setDoc(userDocRef , {
+        displayName,
+        email,
+        createdAt,
+        uid : userAuth.uid
+      })
+    }
+    catch(err){
+      console.log("Something went wrong under 'utils/firebase.js/createUserDocumentFromAuth'");
+    }
+  }
+
+  return userDocRef;
+}
+
+
+
+// For signing in with email and password
+export const signInAuthUserWithEmailAndPassword = async(email , password) => {
+  if(!email || !password) return;
+  return await signInWithEmailAndPassword(auth , email , password);
+}

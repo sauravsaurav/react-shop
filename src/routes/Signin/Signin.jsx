@@ -1,11 +1,10 @@
 import "./Signin.styles.scss";
-import { signInWithGooglePopup } from "../../utils/firebase";
+import { signInWithGooglePopup , createUserDocumentFromAuth , signInAuthUserWithEmailAndPassword} from "../../utils/firebase";
 import Button from "../../components/Button/Button.component";
 import Form from "../../components/Form/Form.component";
 import React, { useRef , useState} from "react";
 import { emailValidator , passwordValidator } from "../../utils/validator";
 import { motion } from "framer-motion";
-
 
 
 const Signin = ()=>{
@@ -17,8 +16,9 @@ const Signin = ()=>{
 
 
     const logGoogleUser = async() => {
-        const response = await signInWithGooglePopup();
-        console.log(response);
+        const {user} = await signInWithGooglePopup();
+        const userDoc = await createUserDocumentFromAuth(user);
+        console.log(userDoc);
     }
 
 
@@ -31,7 +31,7 @@ const Signin = ()=>{
         else setPasswordError(false);
 
         if(!emailValidator(email.current.value) || !passwordValidator(password.current.value)) return;
-        console.log("All Good!");
+        signInAuthUserWithEmailAndPassword(email.current.value , password.current.value);
     };
 
     return (
