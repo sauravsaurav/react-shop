@@ -22,3 +22,12 @@
 .bolder{
   font-weight: bolder;
 }
+
+.snackbar{
+  .Toastify__close-button{
+    position: absolute;
+    top : -14%;
+    left : 65%;
+    color : black
+  }
+}

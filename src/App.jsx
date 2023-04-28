@@ -3,6 +3,7 @@ import React from 'react';
 import {Routes , Route} from "react-router-dom";
 import Loader from './components/Loader/Loader.component';
 
+
 const Navigation = React.lazy(() => import('./routes/Navigation/Navigation.component'));
 const CodeEditor = React.lazy(() => import('./routes/CodeEditor/CodeEditor'));
 const Authentication = React.lazy(() => import('./routes/Authentication/Authentication.component'));

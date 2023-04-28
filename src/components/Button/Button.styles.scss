@@ -6,6 +6,10 @@ button{
     margin-top:10px;
 }
 
+button:disabled{
+    opacity: 0.7 !important;
+    cursor : not-allowed
+}
 
 .default {
     background : dodgerblue; 
