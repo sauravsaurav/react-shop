@@ -8,10 +8,10 @@ import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "
 import { toast , ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ButtonLoader from "../../components/ButtonLoader/ButtonLoader.component";
-
+import { resetInputs } from "../../utils/validator";
 
 const Signup = ()=>{
-    console.log("RUNNING signin form")
+    console.log("RUNNING signup form")
     const email = useRef('');
     const password = useRef('');
     const confirmPassword = useRef('');
@@ -50,6 +50,8 @@ const Signup = ()=>{
                 position: "bottom-center",
                 autoClose: 10000,
             });
+            resetInputs([email , password , confirmPassword, displayName]);
+
         }
         catch(err){
             console.log("Something went wrong in routes/Signup/Signup.component.jsx");

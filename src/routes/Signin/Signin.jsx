@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { toast , ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ButtonLoader from "../../components/ButtonLoader/ButtonLoader.component";
+import { resetInputs } from "../../utils/validator";
 
 
 const Signin = ()=>{
@@ -42,7 +43,8 @@ const Signin = ()=>{
                 position: "bottom-center",
                 autoClose: 10000,
             });
-            console.log(res);
+            resetInputs([email , password]);
+            setIsLoading(false);
         })
         .catch(err => {
             toast.error(err.message, {

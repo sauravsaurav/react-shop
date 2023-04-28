@@ -11,3 +11,9 @@ export const passwordValidator = (value) => {
 export const confirmPasswordValidator = (password, confirmPassword) => {
     return !(!confirmPassword || confirmPassword !== password);
 }
+
+
+// Function for resetting the inputs, it takes array
+export const resetInputs = (inputs = []) => {
+    inputs.forEach(input => input.current.value = '');
+}
