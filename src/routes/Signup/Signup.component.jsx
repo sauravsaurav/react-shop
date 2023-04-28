@@ -45,6 +45,11 @@ const Signup = ()=>{
             // Below is where we are actually saving the user, once the user is 
             await createUserDocumentFromAuth(user , {displayName : displayName.current.value});
             setIsLoading(false);
+            toast.success("User is created" , {
+                className: "snackbar",
+                position: "bottom-center",
+                autoClose: 10000,
+            });
         }
         catch(err){
             console.log("Something went wrong in routes/Signup/Signup.component.jsx");

@@ -36,7 +36,14 @@ const Signin = ()=>{
         if(!emailValidator(email.current.value) || !passwordValidator(password.current.value)) return;
         setIsLoading(true);
         signInAuthUserWithEmailAndPassword(email.current.value , password.current.value)
-        .then(res => console.log("Inside success", res))
+        .then(res => {
+            toast.success("You are signed in!", {
+                className: "snackbar",
+                position: "bottom-center",
+                autoClose: 10000,
+            });
+            console.log(res);
+        })
         .catch(err => {
             toast.error(err.message, {
                 className: "snackbar",
