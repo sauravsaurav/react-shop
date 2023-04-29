@@ -5,19 +5,21 @@ import Form from "../../components/Form/Form.component";
 import React, { useRef , useState} from "react";
 import { emailValidator , passwordValidator } from "../../utils/validator";
 import { motion } from "framer-motion";
-import { toast , ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
 import ButtonLoader from "../../components/ButtonLoader/ButtonLoader.component";
 import { resetInputs } from "../../utils/validator";
+import { NotificationContext } from "../../store/notification.context";
 
 
 const Signin = ()=>{
-    console.log("RUNNING signin form")
+    console.log("RUNNING signin form");
     const email = useRef('');
     const password = useRef('');
     const [emailError , setEmailError] = useState(false);
     const [passwordError , setPasswordError] = useState(false);
     const [isLoading , setIsLoading] = useState(false);
+    const {setNotification} = useContext(NotificationContext);
+
 
     const logGoogleUser = async() => {
         const {user} = await signInWithGooglePopup();
@@ -37,21 +39,14 @@ const Signin = ()=>{
         if(!emailValidator(email.current.value) || !passwordValidator(password.current.value)) return;
         setIsLoading(true);
         signInAuthUserWithEmailAndPassword(email.current.value , password.current.value)
-        .then(res => {
-            toast.success("You are signed in!", {
-                className: "snackbar",
-                position: "bottom-center",
-                autoClose: 10000,
-            });
+        .then(({user}) => {
             resetInputs([email , password]);
             setIsLoading(false);
+            setNotification({status : "success" , message : "User is signed in!"});
         })
         .catch(err => {
-            toast.error(err.message, {
-                className: "snackbar",
-                position: "bottom-center",
-                autoClose: 10000,
-            });
+            console.log(err);
+            setNotification({status : "error" , message : err.message});
             setIsLoading(false);
         });
         
@@ -60,7 +55,7 @@ const Signin = ()=>{
     return (
         <motion.div initial={{position:'relative',zIndex:99, opacity:0, scale:0.5}} className="signin-container" animate={{ opacity: 1 , scale:1 }}
         transition={{ duration: 0.5 }}>
-            <ToastContainer/>
+            
             <Form onSubmit={signInSubmitHandler}>
                 <h3 className="press-start"><center>Signin</center></h3>
                 <div className={`form-group ${emailError ? 'field-error' : ''}`}>

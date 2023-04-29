@@ -1,14 +1,14 @@
 import "./Signup.styles.scss";
 import Button from "../../components/Button/Button.component";
 import Form from "../../components/Form/Form.component";
-import React, { useRef , useState } from "react";
+import React, { useRef , useState, useContext } from "react";
 import { emailValidator , passwordValidator, confirmPasswordValidator } from "../../utils/validator";
 import { motion } from "framer-motion";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase";
-import { toast , ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import ButtonLoader from "../../components/ButtonLoader/ButtonLoader.component";
 import { resetInputs } from "../../utils/validator";
+import { NotificationContext } from "../../store/notification.context";
+
 
 const Signup = ()=>{
     console.log("RUNNING signup form")
@@ -20,6 +20,7 @@ const Signup = ()=>{
     const [passwordError , setPasswordError] = useState(false);
     const [confirmPasswordError , setConfirmPasswordError] = useState(false);
     const [displayNameError , setDisplayNameError] = useState(false);
+    const {setNotification} = useContext(NotificationContext);
 
     const [isLoading , setIsLoading] = useState(false);
 
@@ -45,21 +46,13 @@ const Signup = ()=>{
             // Below is where we are actually saving the user, once the user is 
             await createUserDocumentFromAuth(user , {displayName : displayName.current.value});
             setIsLoading(false);
-            toast.success("User is created" , {
-                className: "snackbar",
-                position: "bottom-center",
-                autoClose: 10000,
-            });
+            setNotification({status : 'success' , message : "User is created!"})
             resetInputs([email , password , confirmPassword, displayName]);
 
         }
         catch(err){
             console.log("Something went wrong in routes/Signup/Signup.component.jsx");
-            toast.error(err.message , {
-                className: "snackbar",
-                position: "bottom-center",
-                autoClose: 10000,
-            });
+            setNotification({status : "error" , message : err.message});
             setIsLoading(false);
         }
         
@@ -68,7 +61,6 @@ const Signup = ()=>{
     return (
         <motion.div initial={{position:'relative',zIndex:99, opacity:0, scale:0.5}} className="signup-container" animate={{ opacity: 1 , scale:1 }}
         transition={{ duration: 0.5 }}>
-            <ToastContainer />
             <Form onSubmit={signUpSubmitHandler}>
                 <h3 className="press-start"><center>Signup</center></h3>
                 <div className={`form-group ${displayNameError ? 'field-error' : ''}`}>

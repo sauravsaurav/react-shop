@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {GoogleAuthProvider, getAuth  , signInWithPopup , signInWithEmailAndPassword , createUserWithEmailAndPassword} from "firebase/auth";
+import {onAuthStateChanged , GoogleAuthProvider, getAuth  , signInWithPopup , signInWithEmailAndPassword , createUserWithEmailAndPassword , signOut} from "firebase/auth";
 import {getFirestore, doc , getDoc , setDoc} from "firebase/firestore";
 
 
@@ -77,3 +77,13 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
+
+
+// For signing out the user 
+export const signOutUser = async()=> signOut(auth);
+
+// For observing the auth state change 
+export const onAuthStateChangeHandler = (callback) => {
+  // In below , the callback will run whenever the auth state changes.
+  onAuthStateChanged(auth , callback);
+}

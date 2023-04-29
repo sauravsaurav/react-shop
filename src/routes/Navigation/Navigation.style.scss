@@ -49,6 +49,48 @@
     .main-container{
         z-index: 99999999999;
     }
+
+
+    .logoutButton{
+        position:absolute;
+        right : 50px;
+        top : 0px;
+        padding : 10px;
+        max-width:200px;
+        background : tomato;
+        outline : none;
+        border : none;
+        font-weight:bolder;
+        color : white;
+        cursor: pointer;
+        display: inline-block;
+        width : 200px;
+    }
+    .loginUser{
+        position:absolute;
+        right : 50px;
+        top : 0px;
+        padding : 10px;
+        max-width:200px;
+        background : dodgerblue;
+        outline : none;
+        border : none;
+        font-weight:bolder;
+        color : white;
+        cursor: pointer;
+        display: inline-block;
+        width : 200px;
+    }
+
+
+    @media (max-width:900px){
+        .loginUser , .logoutButton{
+            max-width : 50px !important;
+            font-size:1.5vw;
+            width : 40px !important;
+            right : 30px;
+        }
+    }
 }
 
 
