@@ -1,0 +1,15 @@
+.directory-container{
+    width: 20vw; /* Set the width of the sidebar */
+    background-color: white; /* Optional: Add a background color */
+    height : 100vh;
+    z-index:999999999999;
+    opacity: 0.6;
+    font-weight:bolder;
+    font-size:1.2vw;
+
+    .directory-header{
+        background : black;
+        color : white;
+        padding : 20px 0px;
+    }
+}

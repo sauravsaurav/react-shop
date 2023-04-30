@@ -1,0 +1,26 @@
+.text-editor{
+    flex: 0.6; /* Set the content section to fill the remaining space */
+    background-color: #eee; /* Optional: Add a background color */
+    z-index: 9999999999;
+    opacity: 0.6;
+    font-weight:bolder;
+    font-size:1.2vw;
+    overflow:hidden;
+
+    .text-editor-header{
+        background : rgb(172, 209, 26);
+        color : black;
+        padding : 20px 0px;
+    }
+
+
+    textarea{
+        height : 94%;
+        width : 100%;
+        background : black;
+        color: white;
+        font-size:13px;
+        font-family: Arial;
+        font-weight: bolder;
+    }
+}
