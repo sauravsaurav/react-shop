@@ -24,10 +24,12 @@
 }
 
 .snackbar{
+  z-index: 99999999999999999 !important;
   .Toastify__close-button{
     position: absolute;
     top : -14%;
     left : 65%;
-    color : black
+    color : black;
+    
   }
 }

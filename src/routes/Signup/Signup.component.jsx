@@ -6,10 +6,9 @@ import { emailValidator , passwordValidator, confirmPasswordValidator } from "..
 import { motion } from "framer-motion";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase";
 import ButtonLoader from "../../components/ButtonLoader/ButtonLoader.component";
-import { resetInputs } from "../../utils/validator";
 import { NotificationContext } from "../../store/notification.context";
 
-
+// nDdIeisudGeCEGMMCkIW7NmgXzd2
 const Signup = ()=>{
     console.log("RUNNING signup form")
     const email = useRef('');
@@ -47,8 +46,6 @@ const Signup = ()=>{
             await createUserDocumentFromAuth(user , {displayName : displayName.current.value});
             setIsLoading(false);
             setNotification({status : 'success' , message : "User is created!"})
-            resetInputs([email , password , confirmPassword, displayName]);
-
         }
         catch(err){
             console.log("Something went wrong in routes/Signup/Signup.component.jsx");

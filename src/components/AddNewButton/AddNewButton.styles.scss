@@ -1,0 +1,43 @@
+.add-new-button-container{
+    display: inline-block;
+    position: relative;
+
+    .menu-btn{
+        min-width: 30px;
+        display: inline-block !important;
+        height : 20px !important;
+        width : 20px !important;
+        padding : 0px !important;
+        background : black !important;
+        cursor: pointer;
+        text-align: center;
+        font-size:17px !important;
+        border-radius: 20%;
+        color : white;
+    }
+
+    .options-container{
+        position:absolute;
+        display: inline-block;
+        width : 200px;
+        background : black !important;
+        top :110%;
+        list-style-type: none;
+        right : 0%;
+        border:1px solid black;
+        box-shadow: 3px 3px 3px black;
+
+        li {
+            padding : 10px 0px;
+            font-size:14px;
+            color : white;
+            border-bottom:1px solid white
+        }
+
+        li:hover{
+            background : rgba(61, 246, 15, 0.755);
+            color : white;
+            cursor:pointer;
+        }
+    }
+}

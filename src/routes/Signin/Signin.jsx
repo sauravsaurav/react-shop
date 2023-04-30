@@ -22,9 +22,14 @@ const Signin = ()=>{
 
 
     const logGoogleUser = async() => {
-        const {user} = await signInWithGooglePopup();
-        const userDoc = await createUserDocumentFromAuth(user);
-        console.log(userDoc);
+        try{
+            const {user} = await signInWithGooglePopup();
+            await createUserDocumentFromAuth(user);
+            setNotification({status : "success" , message : "User is signed in!"});
+        }
+        catch(err){
+            setNotification({status : "error" , message : err.message});
+        }
     }
 
 
