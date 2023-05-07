@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState , useEffect} from "react";
+import { getDirectoriesOfUser } from "../utils/firebase";
 
 
 
@@ -12,6 +13,20 @@ export const DirectoryContext = createContext({
 export const DirectoryContextProvider = ({children}) => {
     const [directoryOptions , setDirectoryOption] = useState({});
     const value = {directoryOptions , setDirectoryOption};
+
+    useEffect(()=>{
+        if(directoryOptions.uid && !directoryOptions.directories){
+             getDirectoriesOfUser(directoryOptions.uid).then(res => {
+                setDirectoryOption(prevstate=>{
+                    return {
+                        ...prevstate,
+                        directories : {...JSON.parse(res),showMenu: false},
+                        
+                    }
+                })
+             });
+        }
+    },[directoryOptions]);
 
     return (
         <DirectoryContext.Provider value={value}>

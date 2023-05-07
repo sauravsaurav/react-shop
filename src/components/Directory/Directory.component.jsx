@@ -2,11 +2,10 @@ import "./Directory.styles.scss";
 import {motion} from "framer-motion";
 import { useContext } from "react";
 import { DirectoryContext } from "../../store/directory.context";
-import AddNewButton from "../AddNewButton/AddNewButton";
+import EachFolderFile from "../EachFolderFile/EachFolderFile";
 
 const Directory = ()=>{
     const {directoryOptions} = useContext(DirectoryContext);
-
     const variants = {
         initial: { x: -200, opacity: 0 },
         animate: { x: 0, opacity: 0.6 },
@@ -18,12 +17,16 @@ const Directory = ()=>{
                 <h5 className="press-start directory-header">Directory Lists</h5>
             </center>
             <div className="directory-content">
-            {
-                !directoryOptions.directories && 
-                <b style={{fontFamily:"Arial",fontSize:'14px'}}>
-                    Start by creating folder <AddNewButton/>
-                </b>
-            }
+                <ul className="directory-list">
+                    {
+                        !directoryOptions.directories && 
+                        <EachFolderFile name="Loading..." type = "folder" content = "The content is loading" />
+                    }
+                    {
+                        directoryOptions.directories && 
+                        <EachFolderFile path="root@@" isRoot={true} name={`${directoryOptions.directories.name}`} type = "folder" content = {`${directoryOptions.directories.directories.length === 0 && directoryOptions.directories.files.length === 0 ? 'Folder is empty' : ''}`} />
+                    }
+                </ul>
             </div>
         </motion.div>
     )

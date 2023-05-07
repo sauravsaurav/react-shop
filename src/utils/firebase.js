@@ -87,3 +87,17 @@ export const onAuthStateChangeHandler = (callback) => {
   // In below , the callback will run whenever the auth state changes.
   onAuthStateChanged(auth , callback);
 }
+
+
+// For fetching all the directories of the logged in user 
+export const getDirectoriesOfUser = async (uid)=>{
+  const userDocRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userDocRef);
+  if(userDoc.exists()){
+    return (userDoc.data().directories);  
+  }
+  else{
+    return JSON.stringify({name : "root", directories : [] , files : []});
+  }
+}
+

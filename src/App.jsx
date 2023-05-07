@@ -4,6 +4,7 @@ import {Routes , Route} from "react-router-dom";
 import Loader from './components/Loader/Loader.component';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './store/user.context';
+import { DirectoryContext } from './store/directory.context';
 
 const Navigation = React.lazy(() => import('./routes/Navigation/Navigation.component'));
 const CodeEditor = React.lazy(() => import('./routes/CodeEditor/CodeEditor'));
@@ -12,6 +13,8 @@ const Authentication = React.lazy(() => import('./routes/Authentication/Authenti
 
 const App = () => {
   const {currentUser} = useContext(UserContext);
+  const {setDirectoryOption} = useContext(DirectoryContext);
+
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -21,6 +24,12 @@ const App = () => {
       navigate("/signin");
     }
   },[currentUser, navigate]);
+
+  useEffect(()=>{
+    if(currentUser){
+      setDirectoryOption(currentUser);
+    }
+  },[currentUser , setDirectoryOption]);
 
 
   return (

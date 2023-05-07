@@ -1,0 +1,29 @@
+.folder-menu-container{
+    background : dodgerblue;
+    position:absolute;
+    top : 15%;
+    left : 1%;
+    opacity: 1;
+    list-style: none;
+    font-weight: 0 !important;
+    z-index:99999999999999;
+
+    li{
+        padding: 10px;
+        border-bottom:1px solid white;
+        font-weight: 0px  !important;
+        color : white;
+    }
+
+    li:last-child{
+        border:none
+    }
+
+    li:hover{
+        background : limegreen;
+    }
+
+    .closeMenu{
+        background: tomato;
+    }
+}

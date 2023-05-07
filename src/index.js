@@ -12,9 +12,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
      <NotificationContextProvider>
-       <DirectoryContextProvider>
-          <UserProvider>
-            <App />
+     <DirectoryContextProvider>
+        <UserProvider>
+              <App />
           </UserProvider>
         </DirectoryContextProvider>
       </NotificationContextProvider>
