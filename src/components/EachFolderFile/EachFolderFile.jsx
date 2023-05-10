@@ -11,7 +11,6 @@ const EachFolderFile = (props)=>{
     const {setNotification} = useContext(NotificationContext);
 
 
-
     const inputBoxSubmitHandler = useCallback((value , currentAction, isRoot , path)=>{
         if(isRoot){
             if(currentAction === 'NEW_FOLDER'){
@@ -243,7 +242,7 @@ const EachFolderFile = (props)=>{
                     <Fragment key={`${dir.name}`}>
                     <ul key={`${dir.name+ Math.random()}`} style={{position:"relative",minHeight:`${dir.showMenu ? '240px': ''}`, overflowY:`${dir.showMenu ? 'scroll': 'none'}`}}>
                     <li data-path={path} className="each-folder" onContextMenu={(e)=>openMenuHandler(e,path)} key={`${dir.name+ Math.random()}`}>
-                        <Collapsible trigger={`${gaps} 📂 ${dir.name}`} open={tempPath.includes(dir.name)}>
+                        <Collapsible trigger={`|${gaps} 📂 ${dir.name}`} open={tempPath.includes(dir.name)}>
                             <ul>
                                 {
                                     dir.directories.length > 0 ? recursive(dir.directories,gaps+"_", path) : 
@@ -252,10 +251,10 @@ const EachFolderFile = (props)=>{
                                 {
                                         dir.files.length > 0 ?  dir.files.map((file)=>{
                                             return (
-                                                <li onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className="each-folder" key={`${dir.name + file.name+Math.random()}`}>{`${gaps}_ 🗃️`+file.name}</li>
+                                                <li onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className="each-folder" key={`${dir.name + file.name+Math.random()}`}>{`|${gaps}_ 🗃️`+file.name}</li>
                                             )
                                             }) : 
-                                            ((!dir.directories.length &&  !dir.files.length) && `${gaps}_ Folder is empty`)
+                                            ((!dir.directories.length &&  !dir.files.length) && `|${gaps}_ Folder is empty`)
                                 }
                             </ul>
                         </Collapsible>
@@ -284,7 +283,7 @@ const EachFolderFile = (props)=>{
             <li className="each-folder" onContextMenu={(e)=> openMenuHandler(e, name+">>")}>
                 <Collapsible trigger={`📂
                  ${name}`}>
-                    {content}
+                     {content}
                     {
                         callToRecursiveFn()
                     }
@@ -292,7 +291,7 @@ const EachFolderFile = (props)=>{
                         (directoryOptions.directories &&  directoryOptions.directories.files.length > 0) && 
                         directoryOptions.directories.files.map(eachFile =>
                             <li onContextMenu={(e)=> openMenuHandler(e, name+">>")} data-file={`${name}>>${eachFile.name}`} className="each-folder" key={eachFile.name+Math.random()}>
-                                🗃️ {eachFile.name}
+                                |🗃️ {eachFile.name}
                             </li>    
                         )
                     }

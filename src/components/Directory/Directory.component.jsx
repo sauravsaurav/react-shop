@@ -18,6 +18,7 @@ const Directory = ()=>{
             </center>
             <div className="directory-content">
                 <ul className="directory-list">
+                    <div className="rootDir"></div>
                     {
                         !directoryOptions.directories && 
                         <EachFolderFile name="Loading..." type = "folder" content = "The content is loading" />
