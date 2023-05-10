@@ -16,34 +16,27 @@ const Menu = (props)=>{
     
 
     const closeMenuHandler = (e)=>{
-        props.onClose(e);
+        props.onClose(e,props.path);
     }
 
 
     const inputBoxSubmitHandler = (value , e)=>{
-        props.onClose(e, currentAction, value, true);
+        props.onClose(e, currentAction, value, isRoot , currentAction);
     }
 
 
     const actionHandler = (e)=>{
        switch(e){
         case 'NEW_FOLDER':
-            if(isRoot){
                 setCurrentAction('NEW_FOLDER');
                 setInputIsOpen(true);
-            }
         break;
         case 'NEW_FILE':
-            if(isRoot){
                 setCurrentAction('NEW_FILE');
                 setInputIsOpen(true);
-            }
         break;
-        case 'RENAME':
-            if(isRoot){
-                setCurrentAction('RENAME');
-                setInputIsOpen(true);
-            }
+        case 'DELETE':
+            props.onClose(null, "DELETE", '', isRoot , currentAction);
         break;
         default:
             console.log("No action matched");
@@ -57,7 +50,6 @@ const Menu = (props)=>{
                 <>
                     <li className="each-menu" onClick={actionHandler.bind(null , 'NEW_FOLDER')}>📂 Create new folder</li>
                     <li className="each-menu" onClick={actionHandler.bind(null , 'NEW_FILE')}>🗃️ Create new file</li>
-                    <li className="each-menu" onClick={actionHandler.bind(null , 'RENAME')}>✏️ Rename</li>
                     <li className="each-menu" onClick={actionHandler.bind(null , 'DELETE')}>🗑️ Delete</li>
                 </>
             }

@@ -1,11 +1,17 @@
 import "./FolderInput.styles.scss";
-import { useRef } from "react";
+import { useRef , useContext} from "react";
+import { NotificationContext } from "../../store/notification.context";
 
 const FolderInput = (props)=>{
     const inputRef = useRef('');
+    const {setNotification} = useContext(NotificationContext);
     const submitHandler = (e)=>{
         e.preventDefault();
-        console.log("Submitting the button");
+        if(inputRef.current.value === '')
+        {
+            setNotification({status : "error", message : "Name can't be blank 😒"});
+            return;
+        }
         props.onSubmitHandler(inputRef.current.value , e);
     }
 
@@ -15,13 +21,18 @@ const FolderInput = (props)=>{
             props.onClose(e);
         }
         else if(e.key === 'Enter'){
+            if(inputRef.current.value === '')
+            {
+                setNotification({status : "error", message : "Name can't be blank bro 😒"});
+                return;
+            }
             props.onSubmitHandler(inputRef.current.value, e );
         }
     }
 
     return (
         <form className="each-menu folder-input-container" onSubmit={submitHandler}>
-            <input ref={inputRef} type='text' placeholder="Your Folder Name" onKeyUp={keyUpHandler} autoFocus/> <br/>
+            <input ref={inputRef} type='text' placeholder="Provide a name" onKeyUp={keyUpHandler} autoFocus/> <br/>
             <button type="submit" name="submit">✔️ Save</button>
         </form>
     )

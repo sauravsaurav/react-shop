@@ -10,7 +10,6 @@ import { NotificationContext } from "../../store/notification.context";
 
 // nDdIeisudGeCEGMMCkIW7NmgXzd2
 const Signup = ()=>{
-    console.log("RUNNING signup form")
     const email = useRef('');
     const password = useRef('');
     const confirmPassword = useRef('');
@@ -24,7 +23,6 @@ const Signup = ()=>{
     const [isLoading , setIsLoading] = useState(false);
 
     const signUpSubmitHandler = async (e) => {
-        console.log("Running signUpSubmitHandler");
         e.preventDefault();
         if(!emailValidator(email.current.value)) setEmailError(true);
         else setEmailError(false);

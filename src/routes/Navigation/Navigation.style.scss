@@ -47,7 +47,10 @@
     }
 
     .main-container{
-        z-index: 99999999999;
+        z-index: 99999999;
+        .Toastify__toast-container--bottom-center{
+            z-index: 9999999999999999999999 !important;
+        }
     }
 
 

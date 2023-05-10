@@ -30,19 +30,21 @@ const Navigation = ()=>{
 
     useEffect(()=>{
         let identifier;
-
+        
         if(notification && notification.status !== ''){
             if(notification.status === 'error'){
                 toast.error(notification.message, {
                     className: "snackbar",
                     position: "bottom-center",
                     autoClose: 10000,
+                    style:{zIndex:'999999999999999999999999 !important'}
                 });
             }else if(notification.status === 'success'){
                 toast.success(notification.message, {
                     className: "snackbar",
                     position: "bottom-center",
                     autoClose: 10000,
+                    style:{zIndex:'999999999999999999999999 !important'}
                 });
             }
             identifier = setTimeout(()=>{
