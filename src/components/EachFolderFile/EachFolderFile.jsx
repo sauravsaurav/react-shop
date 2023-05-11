@@ -16,7 +16,6 @@ const EachFolderFile = (props)=>{
             if(currentAction === 'NEW_FOLDER'){
                 let foundDuplicate = false;
                 if(directoryOptions.directories){
-                    console.log(directoryOptions.directories);
                     directoryOptions.directories.directories.forEach((dir)=>{
                         if(dir.name === value){
                             foundDuplicate = true;
@@ -232,6 +231,14 @@ const EachFolderFile = (props)=>{
                 
     },[directoryOptions , setDirectoryOption, inputBoxSubmitHandler]);
 
+    const setFileToCode = useCallback((e, file)=>{
+        setDirectoryOption(prevState => {
+            return {
+                ...prevState,
+                fileToCode : file
+            }
+        });
+    },[setDirectoryOption]);
 
 
      const  recursive = useCallback((currentObj , gaps , objectPath)=>{
@@ -251,7 +258,7 @@ const EachFolderFile = (props)=>{
                                 {
                                         dir.files.length > 0 ?  dir.files.map((file)=>{
                                             return (
-                                                <li onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className="each-folder" key={`${dir.name + file.name+Math.random()}`}>{`|${gaps}_ 🗃️`+file.name}</li>
+                                                <li onClick={(e)=> setFileToCode(e,path+">>"+file.name)} onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className={`${(path+">>"+file.name) === directoryOptions.fileToCode ? 'activeFile': ''} each-folder`} key={`${dir.name + file.name+Math.random()}`}>{`|${gaps}_ 🗃️`+file.name}</li>
                                             )
                                             }) : 
                                             ((!dir.directories.length &&  !dir.files.length) && `|${gaps}_ Folder is empty`)
@@ -267,7 +274,7 @@ const EachFolderFile = (props)=>{
                     </Fragment>
                 )
             })
-    },[ openMenuHandler ]);
+    },[ openMenuHandler, setFileToCode , directoryOptions.fileToCode]);
 
     const callToRecursiveFn = useCallback(()=>{
         if(directoryOptions.directories &&
@@ -277,6 +284,7 @@ const EachFolderFile = (props)=>{
     },[recursive , directoryOptions.directories]);
 
 
+   
     
 
     return (
@@ -290,8 +298,8 @@ const EachFolderFile = (props)=>{
                     {
                         (directoryOptions.directories &&  directoryOptions.directories.files.length > 0) && 
                         directoryOptions.directories.files.map(eachFile =>
-                            <li onContextMenu={(e)=> openMenuHandler(e, name+">>")} data-file={`${name}>>${eachFile.name}`} className="each-folder" key={eachFile.name+Math.random()}>
-                                |🗃️ {eachFile.name}
+                            <li onClick={(e)=> setFileToCode(e,name+">>"+eachFile.name)} onContextMenu={(e)=> openMenuHandler(e, name+">>")} data-file={`${name}>>${eachFile.name}`} className={`${(name+">>"+eachFile.name) === directoryOptions.fileToCode ? 'activeFile' : ''} each-folder`} key={eachFile.name+Math.random()}>
+                                |__🗃️ {eachFile.name}
                             </li>    
                         )
                     }

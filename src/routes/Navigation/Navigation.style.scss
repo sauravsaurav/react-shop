@@ -44,6 +44,17 @@
 
     .siteName{
         position: relative;
+        .author{
+            width : 300px;
+            padding : 3px 0px;
+            margin : 3px auto;
+            border-top:1px solid black;
+            font-size:0.9vw;
+
+            .special{
+                color : blue !important;
+            }
+        }
     }
 
     .main-container{
@@ -246,3 +257,4 @@
 .Toastify__toast-container--bottom-center{
     z-index: 9999999999999999999 !important;
 }
+

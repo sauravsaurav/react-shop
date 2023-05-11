@@ -21,7 +21,8 @@ export const DirectoryContextProvider = ({children}) => {
                     return {
                         ...prevstate,
                         directories : {...JSON.parse(res),showMenu: false},
-                        selectedFile : ''
+                        selectedFile : '',
+                        fileToCode : ''
                         
                     }
                 })

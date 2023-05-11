@@ -30,16 +30,13 @@ const Menu = (props)=>{
         case 'NEW_FOLDER':
                 setCurrentAction('NEW_FOLDER');
                 setInputIsOpen(true);
-                localStorage.setItem("isSaved", "false");
         break;
         case 'NEW_FILE':
                 setCurrentAction('NEW_FILE');
                 setInputIsOpen(true);
-                localStorage.setItem("isSaved", "false");
         break;
         case 'DELETE':
             props.onClose(null, "DELETE", '', isRoot , currentAction);
-            localStorage.setItem("isSaved", "false");
         break;
         default:
             console.log("No action matched");
