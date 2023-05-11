@@ -1,6 +1,6 @@
 import "./Menu.styles.scss";
 import {motion} from "framer-motion";
-import {  useState , useCallback } from "react";
+import {  useState} from "react";
 import FolderInput from "../FolderInput/FolderInput.component";
 
 const Menu = (props)=>{
@@ -15,17 +15,17 @@ const Menu = (props)=>{
 
     
 
-    const closeMenuHandler = useCallback((e)=>{
+    const closeMenuHandler = (e)=>{
         props.onClose(e,props.path);
-    },[props]);
+    }
 
 
-    const inputBoxSubmitHandler = useCallback((value , e)=>{
+    const inputBoxSubmitHandler = (value , e)=>{
         props.onClose(e, currentAction, value, isRoot , currentAction);
-    },[props,currentAction, isRoot]);
+    }
 
 
-    const actionHandler = useCallback((e)=>{
+    const actionHandler = (e)=>{
        switch(e){
         case 'NEW_FOLDER':
                 setCurrentAction('NEW_FOLDER');
@@ -44,7 +44,7 @@ const Menu = (props)=>{
         default:
             console.log("No action matched");
        }
-    },[currentAction,isRoot,props]);
+    }
 
     return (
         <motion.ul className="folder-menu-container" initial="initial" animate='animate' variants={variants} >
@@ -65,4 +65,4 @@ const Menu = (props)=>{
     )
 }
 
-export default (Menu) ;
+export default Menu;

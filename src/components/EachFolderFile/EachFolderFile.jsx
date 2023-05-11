@@ -1,6 +1,6 @@
 import "./EachFolderFile.styles.scss";
 import Collapsible from 'react-collapsible';
-import { useContext,   useCallback, Fragment  }  from "react";
+import { useContext,   useCallback, Fragment   }  from "react";
 import Menu from "../Menu/Menu.component";
 import { DirectoryContext } from "../../store/directory.context";
 import { NotificationContext } from "../../store/notification.context";
@@ -304,4 +304,4 @@ const EachFolderFile = (props)=>{
     )
 }
 
-export default (EachFolderFile);
+export default EachFolderFile

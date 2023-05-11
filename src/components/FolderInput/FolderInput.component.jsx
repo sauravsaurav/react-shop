@@ -1,11 +1,11 @@
 import "./FolderInput.styles.scss";
-import { useRef , useContext , useCallback} from "react";
+import { useRef , useContext} from "react";
 import { NotificationContext } from "../../store/notification.context";
 
 const FolderInput = (props)=>{
     const inputRef = useRef('');
     const {setNotification} = useContext(NotificationContext);
-    const submitHandler = useCallback((e)=>{
+    const submitHandler = (e)=>{
         e.preventDefault();
         if(inputRef.current.value === '')
         {
@@ -13,9 +13,9 @@ const FolderInput = (props)=>{
             return;
         }
         props.onSubmitHandler(inputRef.current.value , e);
-    },[props , setNotification]);
+    }
 
-    const keyUpHandler = useCallback((e)=>{
+    const keyUpHandler = (e)=>{
         e.preventDefault();
         if(e.key === 'Escape'){
             props.onClose(e);
@@ -28,7 +28,7 @@ const FolderInput = (props)=>{
             }
             props.onSubmitHandler(inputRef.current.value, e );
         }
-    },[props,setNotification]);
+    }
 
     return (
         <form className="each-menu folder-input-container" onSubmit={submitHandler}>
@@ -38,4 +38,4 @@ const FolderInput = (props)=>{
     )
 }
 
-export default (FolderInput);
+export default FolderInput;
