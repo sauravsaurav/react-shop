@@ -1,7 +1,7 @@
 import "./Navigation.style.scss";
 import {Outlet} from "react-router-dom";
 import {motion} from "framer-motion";
-import {useContext , useEffect} from "react";
+import {useContext , useEffect , useCallback, React} from "react";
 import {UserContext} from "../../store/user.context";
 import { signOutUser } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
@@ -18,14 +18,14 @@ const Navigation = ()=>{
 
     const navigate = useNavigate();
     
-    const logoutHandler = async()=> {
+    const logoutHandler = useCallback(async()=> {
         await signOutUser();
         setCurrentUser(null);
-    }
+    },[setCurrentUser]);
 
-    const loginHandler = () => {
+    const loginHandler = useCallback(() => {
         navigate('/signin');
-    }
+    },[navigate]);
 
 
     useEffect(()=>{

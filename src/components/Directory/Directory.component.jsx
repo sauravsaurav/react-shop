@@ -33,4 +33,4 @@ const Directory = ()=>{
     )
 }
 
-export default Directory;
+export default (Directory);

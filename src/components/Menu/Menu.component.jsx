@@ -1,6 +1,6 @@
 import "./Menu.styles.scss";
 import {motion} from "framer-motion";
-import {  useState} from "react";
+import {  useState , useCallback } from "react";
 import FolderInput from "../FolderInput/FolderInput.component";
 
 const Menu = (props)=>{
@@ -15,33 +15,36 @@ const Menu = (props)=>{
 
     
 
-    const closeMenuHandler = (e)=>{
+    const closeMenuHandler = useCallback((e)=>{
         props.onClose(e,props.path);
-    }
+    },[props]);
 
 
-    const inputBoxSubmitHandler = (value , e)=>{
+    const inputBoxSubmitHandler = useCallback((value , e)=>{
         props.onClose(e, currentAction, value, isRoot , currentAction);
-    }
+    },[props,currentAction, isRoot]);
 
 
-    const actionHandler = (e)=>{
+    const actionHandler = useCallback((e)=>{
        switch(e){
         case 'NEW_FOLDER':
                 setCurrentAction('NEW_FOLDER');
                 setInputIsOpen(true);
+                localStorage.setItem("isSaved", "false");
         break;
         case 'NEW_FILE':
                 setCurrentAction('NEW_FILE');
                 setInputIsOpen(true);
+                localStorage.setItem("isSaved", "false");
         break;
         case 'DELETE':
             props.onClose(null, "DELETE", '', isRoot , currentAction);
+            localStorage.setItem("isSaved", "false");
         break;
         default:
             console.log("No action matched");
        }
-    }
+    },[currentAction,isRoot,props]);
 
     return (
         <motion.ul className="folder-menu-container" initial="initial" animate='animate' variants={variants} >
@@ -62,4 +65,4 @@ const Menu = (props)=>{
     )
 }
 
-export default Menu;
+export default (Menu) ;
