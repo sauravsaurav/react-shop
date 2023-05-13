@@ -3,17 +3,20 @@ import { motion } from "framer-motion";
 import { useCallback, useContext , useEffect, useRef, useState } from "react";
 import {DirectoryContext} from "../../store/directory.context";
 import { ChromePicker } from 'react-color';
+import useHttp from "../../hooks/useHttps";
 
 const TextEditor = ()=>{
     const {directoryOptions} = useContext(DirectoryContext);
+    const codeInput = "function check(){console.log('Working')} check();";
+    const {sendRequest } = useHttp(codeInput);
     const [showStyleMenu , setShowStyleMenu] = useState(false);
     const [codeEditorStyle , setCodeEditorStyle] = useState({
-        size: 13,
-        family : 'Arial',
+        size: 19,
+        family : 'Trebuchet MS',
         weight : 'bolder',
-        color : '#ffffff'
-
+        color : '#D8E3E3'
     });
+    
 
     const [menuVisibilty , setMenuVisibility] = useState({
         size : false,
@@ -26,6 +29,15 @@ const TextEditor = ()=>{
     const sizeArrays   = Array.from(Array(100).keys()).map(i => i + 1);
     const weightArrays = ['lighter','normal','medium','bold','bolder'];
     const code = useRef('');
+    const laguages = [
+        {name : '🐍 Python' , value: 'py'},
+        {name : '🍵 Java' , value : 'java'},
+        {name : '🤯 C++' , value : 'cpp'},
+        {name : '💀 C' , value : 'c'},
+        {name : '🐿️ GoLang' , value : 'go'},
+        {name : '🤖 C#' , value : 'cs'},
+        {name : '🍀 Node Js' , value : 'js'},
+    ]
 
     const variants = {
         initial: { x: 200, opacity: 0 },
@@ -156,8 +168,13 @@ const TextEditor = ()=>{
             code.current.style.fontWeight=codeEditorStyle.weight;
             code.current.style.color=codeEditorStyle.color;
         }
-        
-    },[codeEditorStyle])
+    },[codeEditorStyle , code]);
+
+
+    const runCode = ()=>{
+        sendRequest();
+    }
+
 
     const familyElement = menuVisibilty.family && 
                                 <motion.ul className="styleContainer" variants={variants2} animate="animate" initial="initial">
@@ -214,10 +231,18 @@ const colorElement = menuVisibilty.color &&
     return (
         <motion.div className="text-editor" variants={variants} initial="initial" animate="animate">
             <center>
-                <h5 className="press-start text-editor-header">
-                    Write Your Code Here
-                    <motion.button className="commonCodeButton right"  initial={{scale:1}} whileTap={{scale:0.8}}>✔️ Save</motion.button>
-                    <motion.button className="commonCodeButton left" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu}>🫧 Style</motion.button>
+                <h5 className="text-editor-header">
+                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save">✔️ Save</motion.button>
+                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu} title="style">🫧 Style</motion.button>
+                    <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language">
+                        <option>Select a language</option>
+                        {
+                            laguages.map(lang => {
+                                return <option key={lang.value} value={lang.value}>&nbsp; {lang.name}</option>
+                            })
+                        }
+                    </motion.select>
+                    <motion.button onClick={runCode} className="commonCodeButton runButton" title="Run your code" whileTap={{scale:0.8}}>▶</motion.button>
                     {
                         showStyleMenu && 
                         <motion.ul className="styleContainer" variants={variants2} animate="animate" initial="initial">

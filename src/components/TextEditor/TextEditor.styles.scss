@@ -1,22 +1,40 @@
 .text-editor{
-    flex: 0.6; /* Set the content section to fill the remaining space */
+    flex: 1.7; /* Set the content section to fill the remaining space */
     background-color: #eee; /* Optional: Add a background color */
     z-index: 9999999999;
     opacity: 0.6;
     font-weight:bolder;
     font-size:1.2vw;
     overflow:hidden;
+    
 
     .text-editor-header{
         background : rgb(172, 209, 26);
         color : black;
-        padding : 20px 0px;
+        padding : 10px 0px !important;
+        display: flex;
         position: relative;
         
+        .runButton{
+            height: 50px;
+            width : 50px;
+            min-width: 50px;
+            padding : 0px !important;
+            text-align: center;
+            font-size:24px;
+            background : dodgerblue !important;
+            color : white;
+            cursor: pointer;
+            flex : 0.1;
+            margin : 0px 10px;
+            flex : 1;
+            
+        }
+            
         .styleContainer{
             list-style: none;
             position: absolute;
-            right : 10%;
+            left : 40%;
             font-size:14px;
             font-weight: none;
             font-family: Arial;
@@ -46,33 +64,36 @@
             }
         }
 
-
         .commonCodeButton{
             font-size:16px;
             padding : 5px 0px !important;
-            min-width: 80px;
-            position:absolute;
             background : black;
             color : white;
-            top : 0;
             cursor: pointer;
-        }
-
-        .right{
-            right : 2%;
-            cursor: pointer;
-        }
-
-        .left{
-            right : 14%;
-            cursor: pointer;
+            flex: 1;
+            margin : 0px 5px;
+            width : 20px !important; 
+            min-width: 0 !important;
+            font-size:1vw;
         }
     }
 
+    @media (max-width: 1098px) {
+        .commonCodeButton{
+            all : unset !important;
+            flex: 1 !important;
+            display: inline-block !important;
+            padding : 20px !important;
+            width : 20% !important;
+            background : black !important;
+            margin : 0px 5px !important;
+            color : white !important
+        }
+    }
 
     textarea{
         height : 94%;
-        width : 100%;
+        width : 97%;
         background : black;
         color: white;
         padding : 0px 10px;
@@ -80,7 +101,7 @@
 
     .emptyContainer{
         font-family: Arial;
-        font-size:30px;
+        font-size:2.1vw;
         width: 100%;
         height: 100%;
         text-align: center;

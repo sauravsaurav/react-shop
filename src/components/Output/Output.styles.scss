@@ -1,0 +1,22 @@
+.output-container{
+    flex : 1;
+    background : white;
+
+    .text-output-header{
+        background : rgb(17, 19, 7) ;
+        color : white;
+        padding : 20px 0px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1vw;
+        
+
+        p{
+            flex:1;
+        }
+    }
+
+    
+}
