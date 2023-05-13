@@ -1,7 +1,7 @@
  import "./Output.styles.scss";
 import {motion} from "framer-motion";
-import useHttp from "../../hooks/useHttps";
-import Loader from "../Loader/Loader.component";
+// import useHttp from "../../hooks/useHttps";
+// import Loader from "../Loader/Loader.component";
 
 const Output = () => {
     
