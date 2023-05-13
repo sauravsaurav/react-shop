@@ -58,6 +58,22 @@ const Navigation = ()=>{
     return (
         <>
             <div className="container">
+                <main className="main-container">
+                    <ul className="circles">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                    </ul>
+                    <Outlet/>
+                    <ToastContainer/>
+                </main>
                 <header>
                     <nav className="navigation area">
                             <ul className="siteName">
@@ -93,22 +109,6 @@ const Navigation = ()=>{
                             
                     </nav>
                 </header>
-                <main className="main-container">
-                    <ul className="circles">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                    </ul>
-                    <Outlet/>
-                    <ToastContainer/>
-                </main>
             </div>
         </>
     );

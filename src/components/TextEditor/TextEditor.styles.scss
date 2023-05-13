@@ -34,7 +34,7 @@
         .styleContainer{
             list-style: none;
             position: absolute;
-            left : 40%;
+            right : 2%;
             font-size:14px;
             font-weight: none;
             font-family: Arial;
@@ -78,7 +78,7 @@
         }
     }
 
-    @media (max-width: 1098px) {
+    @media (max-width: 1099px) {
         .commonCodeButton{
             all : unset !important;
             flex: 1 !important;

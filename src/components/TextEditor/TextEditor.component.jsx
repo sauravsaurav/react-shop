@@ -232,8 +232,7 @@ const colorElement = menuVisibilty.color &&
         <motion.div className="text-editor" variants={variants} initial="initial" animate="animate">
             <center>
                 <h5 className="text-editor-header">
-                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save">✔️ Save</motion.button>
-                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu} title="style">🫧 Style</motion.button>
+                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code">🎙️ Say to code</motion.button>
                     <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language">
                         <option>Select a language</option>
                         {
@@ -242,7 +241,9 @@ const colorElement = menuVisibilty.color &&
                             })
                         }
                     </motion.select>
+                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save">✔️ Save</motion.button>
                     <motion.button onClick={runCode} className="commonCodeButton runButton" title="Run your code" whileTap={{scale:0.8}}>▶</motion.button>
+                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu} title="style">🫧 Style</motion.button>
                     {
                         showStyleMenu && 
                         <motion.ul className="styleContainer" variants={variants2} animate="animate" initial="initial">
