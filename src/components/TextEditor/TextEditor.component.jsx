@@ -230,7 +230,7 @@ const colorElement = menuVisibilty.color &&
     
     return (
         <motion.div className="text-editor" variants={variants} initial="initial" animate="animate">
-            <center>
+            <center className="flexBasis">
                 <h5 className="text-editor-header">
                     <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code">🎙️ Say to code</motion.button>
                     <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language">

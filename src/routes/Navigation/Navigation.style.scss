@@ -124,7 +124,6 @@
 
 .main-container{
     width : 100vw;
-    min-height: 110vh;
     background : rgba(0, 0, 0, 0.212);
     padding : 0px !important;
     position: relative;
@@ -258,3 +257,18 @@
     z-index: 9999999999999999999 !important;
 }
 
+@media(max-width:1900px){
+    .navigation{
+        padding: 22px 0px;
+    }
+
+    .author{
+        width:350px !important
+    }
+}
+
+@media(max-width:900px){
+    .siteName li span{
+        font-size:1.7vw;
+    }
+}

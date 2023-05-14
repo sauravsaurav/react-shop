@@ -1,19 +1,26 @@
 .text-editor{
-    flex: 1.7; /* Set the content section to fill the remaining space */
+    flex: 2.8; /* Set the content section to fill the remaining space */
     background-color: #eee; /* Optional: Add a background color */
     z-index: 9999999999;
     opacity: 0.6;
     font-weight:bolder;
     font-size:1.2vw;
     overflow:hidden;
-    
+    display: flex;
+    height : 100%;
+    flex-direction: column;
+
+    .flexBasis{
+        position:relative
+    }
 
     .text-editor-header{
         background : rgb(172, 209, 26);
         color : black;
         padding : 10px 0px !important;
+        width : 100%;
         display: flex;
-        position: relative;
+       
         
         .runButton{
             height: 50px;
@@ -34,14 +41,14 @@
         .styleContainer{
             list-style: none;
             position: absolute;
-            right : 2%;
+            right : 3%;
             font-size:14px;
             font-weight: none;
             font-family: Arial;
             background : white;
             min-width : 150px;
             text-align: left;
-            top : 90%;
+            top : 100%;
             border-radius: 10px;
             box-shadow: 3px 3px 5px rgb(53, 53, 53);
             max-height: 300px;
@@ -75,6 +82,7 @@
             width : 20px !important; 
             min-width: 0 !important;
             font-size:1vw;
+            position: relative;
         }
     }
 
@@ -89,14 +97,27 @@
             margin : 0px 5px !important;
             color : white !important
         }
+
+        textarea{
+            padding-top: 10px;
+            overflow-y:auto !important;
+        }
+
+        .emptyContainer{
+            margin-top:15px !important;
+        }
     }
 
     textarea{
-        height : 94%;
+        height : 100%;
         width : 97%;
         background : black;
         color: white;
         padding : 0px 10px;
+        overflow-y: auto;
+        padding-top: 10px;
+        flex-basis: 100%;
+        flex-grow: 1;
     }
 
     .emptyContainer{
@@ -108,5 +129,6 @@
         background : black;
         color : white;
         padding : 10px 0px;
+        margin-top:2px !important;
     }
 }
