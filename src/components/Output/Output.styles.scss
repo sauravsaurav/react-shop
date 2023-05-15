@@ -1,5 +1,5 @@
 .output-container{
-    flex : 1;
+    transition: all .5s ease-in-out;
     background : white;
 
     .text-output-header{
@@ -16,7 +16,16 @@
         p{
             flex:1;
         }
-    }
-
-    
+    }   
 }
+
+.expand {
+    transition: all .5s ease-in-out;
+    flex : 1 !important;
+}
+
+.shrink{
+    transition: all .5s ease-in-out;
+    flex: 0.4 !important;
+}
+

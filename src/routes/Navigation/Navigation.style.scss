@@ -13,8 +13,8 @@
 .navigation{
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
-	height: 50px;
-    padding : 10px 0px;
+	height: 60px;
+    padding : 1px 0px;
     width : 100vw;
 
 
@@ -257,13 +257,13 @@
     z-index: 9999999999999999999 !important;
 }
 
-@media(max-width:1900px){
+@media(max-width:3000px){
     .navigation{
-        padding: 22px 0px;
+        padding: 37px 0px;
     }
 
     .author{
-        width:350px !important
+        width:450px !important
     }
 }
 

@@ -1,7 +1,7 @@
 import "./StretchButton.styles.scss";
 import { motion } from "framer-motion";
 
-const StretchButton = ({children, onClick ,title='', style={position:'absolute',top:'70%',right:'-1%'}})=>{
+const StretchButton = ({children, onClick ,title='', style={position:'absolute',top:'110%',right:'2%'}})=>{
 
     return (
         <motion.button style={{...style}} onClick={onClick} className="stretchButton"
