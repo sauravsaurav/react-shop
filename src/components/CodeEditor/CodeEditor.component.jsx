@@ -28,7 +28,7 @@ const CodeEditor = ({fileToCode, style})=>{
             code.current.style.color=style.color;
         }
     },[style]);
-
+    console.log(codedFile);
     const initiate = useCallback(()=>{
         initialValue(fileToCode);
     },[initialValue, fileToCode]);
@@ -124,20 +124,21 @@ const CodeEditor = ({fileToCode, style})=>{
               code.current.value = newValue;
         
               // Update the state with the new value
-              let temp = codedFile;
-              temp = codedFile.filter(c => c.id === fileToCode.id);
-              if (temp.length > 0) {
-                temp[0].value = newValue;
-                setCodedFile(temp);
-              } else {
-                setCodedFile(prevState => [
-                  ...prevState,
-                  {
-                    id: fileToCode.id,
-                    value: newValue
-                  }
-                ]);
-              }
+                let tempCoded = [...codedFile];
+                tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+                if(!tempCoded){
+                    const updatedData = [...codedFile , {id : fileToCode.id , value :newValue }];
+                    setCodedFile(updatedData);
+                }else{
+                    setCodedFile(prevState => {
+                        return prevState.map(item => {
+                            if (item.id === fileToCode.id) {
+                            return { ...item, value:newValue};
+                            }
+                            return item;
+                        });
+                    })
+                }
         
               // Set the new selection range
               e.target.setSelectionRange(start + 5, start + 5);
@@ -153,23 +154,21 @@ const CodeEditor = ({fileToCode, style})=>{
             e.target.selectionStart = cursorPosition - 1;
             e.target.selectionEnd = cursorPosition - 1;
             code.current.value=newValue;
-            let temp = codedFile;
-            temp = codedFile.filter(c => c.id === fileToCode.id);
-            if(temp.length > 0){
-                temp.value = newValue;
-                setCodedFile(temp);
-            }
-            else{
-                setCodedFile(prevState => {
-                    return [
-                        ...prevState,
-                        {
-                            id : fileToCode.id,
-                            value : newValue
-                        }
-                    ]
-                })
-            }
+            let tempCoded = [...codedFile];
+                tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+                if(!tempCoded){
+                    const updatedData = [...codedFile , {id : fileToCode.id , value :newValue }];
+                    setCodedFile(updatedData);
+                }else{
+                    setCodedFile(prevState => {
+                        return prevState.map(item => {
+                            if (item.id === fileToCode.id) {
+                            return { ...item, value:newValue};
+                            }
+                            return item;
+                        });
+                    })
+                }
           }
         else if (e.key === "'" || e.key === "’" || e.key === "`") {
         e.preventDefault();
@@ -184,20 +183,21 @@ const CodeEditor = ({fileToCode, style})=>{
         
         // Update the textarea value and state
         code.current.value = newValue;
-        let temp = codedFile;
-        temp = codedFile.filter(c => c.id === fileToCode.id);
-        if (temp.length > 0) {
-            temp[0].value = newValue;
-            setCodedFile(temp);
-        } else {
-            setCodedFile(prevState => [
-            ...prevState,
-            {
-                id: fileToCode.id,
-                value: newValue
-            }
-            ]);
-        }
+        let tempCoded = [...codedFile];
+                tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+                if(!tempCoded){
+                    const updatedData = [...codedFile , {id : fileToCode.id , value :newValue }];
+                    setCodedFile(updatedData);
+                }else{
+                    setCodedFile(prevState => {
+                        return prevState.map(item => {
+                            if (item.id === fileToCode.id) {
+                            return { ...item, value:newValue};
+                            }
+                            return item;
+                        });
+                    })
+                }
         
         // Set the new selection range
         e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
@@ -220,20 +220,21 @@ const CodeEditor = ({fileToCode, style})=>{
         
         // Update the textarea value and state
         code.current.value = newValue;
-        let temp = codedFile;
-        temp = codedFile.filter(c => c.id === fileToCode.id);
-        if (temp.length > 0) {
-            temp[0].value = newValue;
-            setCodedFile(temp);
-        } else {
-            setCodedFile(prevState => [
-            ...prevState,
-            {
-                id: fileToCode.id,
-                value: newValue
-            }
-            ]);
-        }
+        let tempCoded = [...codedFile];
+                tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+                if(!tempCoded){
+                    const updatedData = [...codedFile , {id : fileToCode.id , value :newValue }];
+                    setCodedFile(updatedData);
+                }else{
+                    setCodedFile(prevState => {
+                        return prevState.map(item => {
+                            if (item.id === fileToCode.id) {
+                            return { ...item, value:newValue};
+                            }
+                            return item;
+                        });
+                    })
+                }
         
         // Move the cursor between the pair of quotes
         textarea.setSelectionRange(start + 1, start + 1);
@@ -254,23 +255,21 @@ const CodeEditor = ({fileToCode, style})=>{
 
             code.current.value=newValue;
 
-            let temp = codedFile;
-            temp = codedFile.filter(c => c.id === fileToCode.id);
-            if(temp.length > 0){
-                temp.value = newValue;
-                setCodedFile(temp);
-            }
-            else{
-                setCodedFile(prevState => {
-                    return [
-                        ...prevState,
-                        {
-                            id : fileToCode.id,
-                            value : newValue
-                        }
-                    ]
-                })
-            }
+            let tempCoded = [...codedFile];
+                tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+                if(!tempCoded){
+                    const updatedData = [...codedFile , {id : fileToCode.id , value :newValue }];
+                    setCodedFile(updatedData);
+                }else{
+                    setCodedFile(prevState => {
+                        return prevState.map(item => {
+                            if (item.id === fileToCode.id) {
+                            return { ...item, value:newValue};
+                            }
+                            return item;
+                        });
+                    })
+                }
         }
     },[setCodedFile,codedFile,fileToCode]);
 
