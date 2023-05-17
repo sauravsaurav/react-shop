@@ -4,6 +4,7 @@ import { useCallback, useContext , useEffect, useRef, useState } from "react";
 import {DirectoryContext} from "../../store/directory.context";
 import { ChromePicker } from 'react-color';
 import useHttp from "../../hooks/useHttps";
+import CodeEditor from "../CodeEditor/CodeEditor.component";
 
 const TextEditor = ()=>{
     const {directoryOptions} = useContext(DirectoryContext);
@@ -28,6 +29,7 @@ const TextEditor = ()=>{
     const familyArrays = ['Arial','Regular', 'Helvetica', 'Verdana', 'Geneva','Tahoma', 'Trebuchet MS'];
     const sizeArrays   = Array.from(Array(100).keys()).map(i => i + 1);
     const weightArrays = ['lighter','normal','medium','bold','bolder'];
+
     const code = useRef('');
     const laguages = [
         {name : '🐍 Python' , value: 'py'},
@@ -48,89 +50,7 @@ const TextEditor = ()=>{
         animate: { x: 0, opacity: 1 },
       };
 
-    const inputChangeHandler = useCallback((e)=>{
-        e.preventDefault();
-        if(e.keyCode === 219 || e.key === "{"){
-            const start = code.current.selectionStart; 
-            const end = code.current.selectionEnd; 
-            const value = code.current.value; 
-            code.current.value = value.substring(0, start) + '}' + value.substring(end); 
-            code.current.selectionStart = code.current.selectionEnd = start; 
-        }
-        else if(e.keyCode === 57 || e.key === "("){
-            const start = code.current.selectionStart; 
-            const end = code.current.selectionEnd; 
-            const value = code.current.value; 
-            code.current.value = value.substring(0, start) + ')' + value.substring(end); 
-            code.current.selectionStart = code.current.selectionEnd = start; 
-        }
-    },[]);
-
-    const inputKeyDownHandler = useCallback((e)=>{
-        if((e.keyCode === 9 || e.key === 'Tab') && !e.shiftKey){
-            e.preventDefault();
-            const start = code.current.selectionStart; 
-            const end = code.current.selectionEnd; 
-            const value = code.current.value; 
-            code.current.value = value.substring(0, start) + '     ' + value.substring(end); 
-            code.current.selectionStart = code.current.selectionEnd = start + 1; 
-        }
-        else if (e.shiftKey && e.key === 'Tab') {
-            e.preventDefault();
-            const cursorPosition = code.current.selectionStart;
-            const currentValue = code.current.value;
-            const newValue =
-            currentValue.substring(0, cursorPosition - 1) +
-              currentValue.substring(cursorPosition);
-            code.current.value = newValue;
-            code.current.selectionStart = cursorPosition - 1;
-            code.current.selectionEnd = cursorPosition - 1;
-          }
-        else if(e.key === "'"){
-            const cursorPosition = code.current.selectionStart;
-            const text = code.current.value;
-            const key = e.key;
-            
-            if (key === "'") {
-                e.preventDefault();
-                code.current.value = text.slice(0, cursorPosition) + "''" + text.slice(cursorPosition);
-                code.current.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
-            }
-        } 
-        else if(e.key === '"'){
-            const textarea = code.current;
-            const key = e.key;
-
-            if (key === "'" || key === '"') {
-                e.preventDefault();
-
-                const start = textarea.selectionStart;
-                const end = textarea.selectionEnd;
-                const value = textarea.value;
-
-                // Insert the key pressed
-                textarea.value = value.substring(0, start) + key + value.substring(end);
-                
-                // Move cursor between the pair of quotes
-                textarea.setSelectionRange(start+1, start+1);
-            }
-        } 
-        else if(e.ctrlKey && e.key === '/'){
-            e.preventDefault();
-            const input = code.current;
-            const value = input.value;
-            const selectionStart = input.selectionStart;
-            const lineStartIndex = value.lastIndexOf('\n', selectionStart - 1) + 1;
-            const lineEndIndex = value.indexOf('\n', selectionStart);
-            const line = value.substring(lineStartIndex, lineEndIndex !== -1 ? lineEndIndex : value.length);
-            const comment = '// ';
-            const newValue = value.substring(0, lineStartIndex) + comment + line + value.substring(lineEndIndex !== -1 ? lineEndIndex : value.length);
-            input.value = newValue;
-            const newSelectionStart = lineStartIndex + comment.length;
-            input.selectionStart = newSelectionStart;
-            input.selectionEnd = newSelectionStart;
-        }
-    },[]);
+    
 
     const toggleStyleMenu = useCallback((e)=>{
         setShowStyleMenu(prevState => !prevState);
@@ -169,6 +89,11 @@ const TextEditor = ()=>{
             code.current.style.color=codeEditorStyle.color;
         }
     },[codeEditorStyle , code]);
+
+    
+
+
+  
 
 
     const runCode = ()=>{
@@ -261,9 +186,7 @@ const colorElement = menuVisibilty.color &&
             </center>
             {
                 directoryOptions.fileToCode && directoryOptions.fileToCode !== '' && 
-                <textarea ref={code} onKeyDown={inputKeyDownHandler} onKeyUp={inputChangeHandler} placeholder="Start writing here..." 
-                >
-                </textarea>
+                <CodeEditor fileToCode={directoryOptions.fileToCode} style={codeEditorStyle}/>
             }
             {
                 (!directoryOptions.fileToCode || directoryOptions.fileToCode === '') && 

@@ -57,7 +57,7 @@ const EachFolderFile = (props)=>{
                             {
                                 ...prevState.directories,
                                 directories: [...prevState.directories.directories],
-                                files : [...prevState.directories.files, {name : value}]
+                                files : [...prevState.directories.files, {name : value , id:path+value ,value:'', isSaved:false , path: path+value}]
                             }
                     }
                 });
@@ -129,7 +129,7 @@ const EachFolderFile = (props)=>{
                         setNotification({status : "error" , message : "Duplicate file under same level is not allowed"});
                         return ;
                     }
-                    mutated.files.push({name: value});
+                    mutated.files.push({name: value, id : path.join(">>")+">>"+value , isSaved: false , value:'' , path:path.join(">>")+">>"+value });
                     setDirectoryOption(temp);
                 }
                 else if (currentAction === 'DELETE'){
@@ -258,7 +258,7 @@ const EachFolderFile = (props)=>{
                                 {
                                         dir.files.length > 0 ?  dir.files.map((file)=>{
                                             return (
-                                                <li onClick={(e)=> setFileToCode(e,path+">>"+file.name)} onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className={`${(path+">>"+file.name) === directoryOptions.fileToCode ? 'activeFile': ''} each-folder`} key={`${dir.name + file.name+Math.random()}`}>{`|${gaps}_ 🗃️`+file.name}</li>
+                                                <li onClick={(e)=> setFileToCode(e,{...file,name: path+">>"+file.name})} onContextMenu={(e)=>openMenuHandler(e,path)} data-file={`${path}>>${file.name}`} className={`${(path+">>"+file.name) === directoryOptions.fileToCode.name ? 'activeFile': ''} each-folder`} key={`${dir.name + file.name+Math.random()}`}>{`|${gaps}_ 🗃️`+file.name}</li>
                                             )
                                             }) : 
                                             ((!dir.directories.length &&  !dir.files.length) && `|${gaps}_ Folder is empty`)
@@ -298,7 +298,7 @@ const EachFolderFile = (props)=>{
                     {
                         (directoryOptions.directories &&  directoryOptions.directories.files.length > 0) && 
                         directoryOptions.directories.files.map(eachFile =>
-                            <li onClick={(e)=> setFileToCode(e,name+">>"+eachFile.name)} onContextMenu={(e)=> openMenuHandler(e, name+">>")} data-file={`${name}>>${eachFile.name}`} className={`${(name+">>"+eachFile.name) === directoryOptions.fileToCode ? 'activeFile' : ''} each-folder`} key={eachFile.name+Math.random()}>
+                            <li onClick={(e)=> setFileToCode(e,{...eachFile, name:name+">>"+eachFile.name })} onContextMenu={(e)=> openMenuHandler(e, name+">>")} data-file={`${name}>>${eachFile.name}`} className={`${(name+">>"+eachFile.name) === directoryOptions.fileToCode.path ? 'activeFile' : ''} each-folder`} key={eachFile.name+Math.random()}>
                                 |__🗃️ {eachFile.name}
                             </li>    
                         )

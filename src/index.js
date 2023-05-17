@@ -6,17 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './store/user.context';
 import { NotificationContextProvider } from './store/notification.context';
 import { DirectoryContextProvider } from './store/directory.context';
+import { CodeContextProvider } from './store/code.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
      <NotificationContextProvider>
-     <DirectoryContextProvider>
-        <UserProvider>
-              <App />
-          </UserProvider>
-        </DirectoryContextProvider>
+      <CodeContextProvider>
+          <DirectoryContextProvider>
+              <UserProvider>
+                    <App />
+                </UserProvider>
+          </DirectoryContextProvider>
+        </CodeContextProvider>
       </NotificationContextProvider>
     </BrowserRouter>
   </React.StrictMode>
