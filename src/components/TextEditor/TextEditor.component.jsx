@@ -5,9 +5,12 @@ import {DirectoryContext} from "../../store/directory.context";
 import { ChromePicker } from 'react-color';
 import CodeEditor from "../CodeEditor/CodeEditor.component";
 import { NotificationContext } from "../../store/notification.context";
+import { updateCodeDetails } from "../../utils/firebase";
+import { CodeContext } from "../../store/code.context";
 
 const TextEditor = (props)=>{
     const {directoryOptions , setDirectoryOption} = useContext(DirectoryContext);
+    const {codedFile } = useContext(CodeContext);
     const {setNotification} = useContext(NotificationContext);
     const [showStyleMenu , setShowStyleMenu] = useState(false);
     const [codeEditorStyle , setCodeEditorStyle] = useState({
@@ -110,6 +113,12 @@ const TextEditor = (props)=>{
         });
     }
 
+    const saveToServer = ()=>{
+        updateCodeDetails(directoryOptions.uid, JSON.stringify(directoryOptions.directories), codedFile)
+        .then(res=> console.log(res))
+        .catch(err => console.log(err));
+    }
+
 
     const familyElement = menuVisibilty.family && 
                                 <motion.ul className="styleContainer" variants={variants2} animate="animate" initial="initial">
@@ -176,7 +185,7 @@ const colorElement = menuVisibilty.color &&
                             })
                         }
                     </motion.select>
-                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save">✔️ Save</motion.button>
+                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save" onClick={saveToServer}>✔️ Save</motion.button>
                     <motion.button onClick={runCode} className="commonCodeButton runButton" title="Run your code" whileTap={{scale:0.8}}>▶</motion.button>
                     <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu} title="style">🫧 Style</motion.button>
                     {

@@ -93,11 +93,24 @@ export const onAuthStateChangeHandler = (callback) => {
 export const getDirectoriesOfUser = async (uid)=>{
   const userDocRef = doc(db, 'users', uid);
   const userDoc = await getDoc(userDocRef);
-  if(userDoc.exists()){
-    return (userDoc.data().directories);  
+  if(userDoc.exists() && userDoc.data().directories){
+    return (userDoc.data());  
   }
   else{
-    return JSON.stringify({name : "root", directories : [] , files : []});
+    return {directories : {}};
   }
 }
 
+
+export const updateCodeDetails = async(uid, directories, codedFile)=>{
+  const userDocRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userDocRef);
+
+  if(userDoc.exists()){
+    const userData = userDoc.data();
+    userData.directories = directories;
+    userData.codedFile = JSON.stringify(codedFile)
+    return await setDoc(userDocRef, userData);
+  }
+}
+// {"name":"root","directories":[],"files":[]}

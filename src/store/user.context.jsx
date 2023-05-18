@@ -13,7 +13,6 @@ export const UserProvider = ({children}) => {
     const value = {currentUser, setCurrentUser};
 
     useEffect(() => {
-        console.log("USE EFFECT IS RUNNING");
         const unsubscribe = onAuthStateChangeHandler((user) => {
             if(user){
                 // Creating the user document
