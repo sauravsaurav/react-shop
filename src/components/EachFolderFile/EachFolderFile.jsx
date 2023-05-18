@@ -4,12 +4,20 @@ import { useContext,   useCallback, Fragment   }  from "react";
 import Menu from "../Menu/Menu.component";
 import { DirectoryContext } from "../../store/directory.context";
 import { NotificationContext } from "../../store/notification.context";
+import { CodeContext } from "../../store/code.context";
 
 const EachFolderFile = (props)=>{
     const {directoryOptions , setDirectoryOption } = useContext(DirectoryContext);
+    const {codedFile , setCodedFile } = useContext(CodeContext);
     const { name = "" , content="The folder is empty!", isRoot=false, path = "" } = props;
     const {setNotification} = useContext(NotificationContext);
 
+
+    const saveLocal = useCallback(()=>{
+        localStorage.setItem("directoryOption",JSON.stringify(directoryOptions));
+        localStorage.setItem("codedFiles", JSON.stringify(codedFile));
+        localStorage.setItem('isSaved','false');
+    },[directoryOptions,codedFile]);
 
     const inputBoxSubmitHandler = useCallback((value , currentAction, isRoot , path)=>{
         if(isRoot){
@@ -36,6 +44,7 @@ const EachFolderFile = (props)=>{
                             }
                     }
                 });
+                saveLocal();
             }
             else if(currentAction === 'NEW_FILE'){
                 let foundDuplicate = false;
@@ -61,15 +70,22 @@ const EachFolderFile = (props)=>{
                             }
                     }
                 });
+                saveLocal();
             }
             else if (currentAction === 'DELETE'){
                 let temp = {...directoryOptions};
+                let tempCodedFile = [...codedFile];
+                tempCodedFile = tempCodedFile.filter(f => f.id !== temp.selectedFile);
                 let path = temp.selectedFile.split(">>");
+                temp.selectedFile = '';
                 if(path.length === 2){
                     let allFiles = temp.directories.files;
                     allFiles = allFiles.filter(eachFile => eachFile.name !== path[1]);
                     temp.directories.files = allFiles;
+                    setCodedFile(tempCodedFile);
+                    setDirectoryOption(temp);
                     setNotification({status : "success" , message : "Deletion successfull"});
+                    saveLocal();
                 }
                 else if(path.length === 1){
                     setNotification({status : "error" , message : "Cannot delete root directory!"});
@@ -106,6 +122,7 @@ const EachFolderFile = (props)=>{
                         directories: temp.directories
                     }
                 });
+                saveLocal();
             }
             else if(currentAction === 'NEW_FILE'){
                     let temp = {...directoryOptions};
@@ -131,13 +148,20 @@ const EachFolderFile = (props)=>{
                     }
                     mutated.files.push({name: value, id : path.join(">>")+">>"+value , isSaved: false , value:'' , path:path.join(">>")+">>"+value });
                     setDirectoryOption(temp);
+                    saveLocal();
                 }
                 else if (currentAction === 'DELETE'){
                     
                     if(directoryOptions.selectedFile !== ''){
                         let temp = {...directoryOptions};
                         let mutated = temp;
+                        let tempCodedFile = [...codedFile];
                         path = directoryOptions.selectedFile.split(">>");
+                        tempCodedFile = tempCodedFile.filter((f) => {
+                            let lastFileName = f.id.split(">>");
+                            return lastFileName[lastFileName.length - 1] !== path[path.length-1];
+                        });
+                        temp.selectedFile = '';
                         path.forEach(p => {
                             if(p === 'root' || p === 'undefined'){
                                 mutated = mutated.directories;
@@ -151,12 +175,20 @@ const EachFolderFile = (props)=>{
                         allFiles = allFiles.filter(eachFile => eachFile.name !== path[path.length-1]);
                         mutated.files = allFiles;
                         setDirectoryOption(temp);
+                        setCodedFile(tempCodedFile);
+                        saveLocal();
                         setNotification({status : "success" , message : "Deletion successfull"});
                     }
                     else{
                         let temp = {...directoryOptions};
                         let mutated = temp;
                         path = path.split(">>");
+                        let tempCodedFile = [...codedFile];
+                        tempCodedFile = tempCodedFile.filter((f) => {
+                            let lastFileName = f.id.split(">>");
+                            return lastFileName[lastFileName.length - 1] !== path[path.length-1];
+                        });
+                        temp.selectedFile = '';
                         let pathLength = path.length;
                         if(pathLength > 3)
                             path.splice(path.length -2 , path.length - 1);
@@ -177,11 +209,13 @@ const EachFolderFile = (props)=>{
                         const index = mutated.directories.findIndex(p => p.name === lastFolderName);
                         mutated.directories.splice(index,1);
                         setDirectoryOption(temp);
+                        setCodedFile(tempCodedFile);
+                        saveLocal();
                         setNotification({status : "success" , message : "Deletion successfull"});
                     }
                 }
         }
-    },[setDirectoryOption , directoryOptions , setNotification]);
+    },[setDirectoryOption , directoryOptions , setNotification, codedFile, setCodedFile,saveLocal]);
 
     const openMenuHandler = useCallback((e, path,value= '',currentAction = '',isRoot = false)=>{
         if(e){

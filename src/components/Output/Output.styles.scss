@@ -1,6 +1,7 @@
 .output-container{
     transition: all .5s ease-in-out;
     background : white;
+    overflow: hidden;
 
     .text-output-header{
         background : rgb(17, 19, 7) ;
@@ -16,7 +17,52 @@
         p{
             flex:1;
         }
+        
     }   
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        height : 100%;
+      }
+      
+      .column1 {
+        height: 40%;
+        border-bottom:2px solid black;
+        overflow: hidden;
+        textarea{
+            width : 99%;
+            height : 100%;
+            background : black;
+            color : white;
+            font-weight: bolder;
+            margin-top:3px;
+        }
+      }
+
+      .column2 {
+        height: 60%;
+        border-bottom:2px solid black;
+        h4{
+            padding: 10px;
+            text-align: center;
+        }
+        .response{
+            width : 100%;
+            height: 100%;
+            background :rgb(17, 19, 7);
+            color : white;
+            font-weight: bolder;
+            font-family: Arial;
+            border-radius: 2px;
+            overflow : auto;
+            white-space: pre-line;
+        }
+        .error{
+            color: tomato;
+        }
+      }
+      
 }
 
 .expand {
@@ -29,3 +75,8 @@
     flex: 0.4 !important;
 }
 
+.full-dimension{
+    width: 100%;
+    height : 100%;
+    background : rgba(45, 42, 42, 0.648)
+}

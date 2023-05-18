@@ -7,6 +7,10 @@ import { CodeContext } from "../../store/code.context";
 const CodeEditor = ({fileToCode, style})=>{
     
     const {codedFile , setCodedFile} = useContext(CodeContext);
+    const saveLocal = useCallback(()=>{
+        localStorage.setItem("codedFiles", JSON.stringify(codedFile));
+        localStorage.setItem('isSaved','false');
+    },[codedFile]);
     const initialValue = useCallback((fileToCode)=>{
         let temp = codedFile.find(c=> c.id === fileToCode.id);
         let timer;
@@ -28,7 +32,7 @@ const CodeEditor = ({fileToCode, style})=>{
             code.current.style.color=style.color;
         }
     },[style]);
-    console.log(codedFile);
+    
     const initiate = useCallback(()=>{
         initialValue(fileToCode);
     },[initialValue, fileToCode]);
@@ -64,6 +68,7 @@ const CodeEditor = ({fileToCode, style})=>{
                 })
             }
             code.current.selectionStart = code.current.selectionEnd = start;
+            saveLocal();
         }
         else if(e.keyCode === 57 || e.key === "("){
             const start = e.target.selectionStart; 
@@ -88,6 +93,7 @@ const CodeEditor = ({fileToCode, style})=>{
                 })
             }
             code.current.selectionStart = code.current.selectionEnd = start; 
+            saveLocal();
         }
         else{
             let tempCoded = [...codedFile];
@@ -105,8 +111,9 @@ const CodeEditor = ({fileToCode, style})=>{
                       });
                 })
             }
+            saveLocal();
         }
-    },[setCodedFile, fileToCode, codedFile]);
+    },[setCodedFile, fileToCode, codedFile,saveLocal]);
 
     const inputKeyDownHandler = useCallback((e)=>{
         if ((e.keyCode === 9 || e.key === 'Tab') && !e.shiftKey) {
@@ -271,7 +278,8 @@ const CodeEditor = ({fileToCode, style})=>{
                     })
                 }
         }
-    },[setCodedFile,codedFile,fileToCode]);
+        saveLocal();
+    },[setCodedFile,codedFile,fileToCode,saveLocal]);
 
    
 

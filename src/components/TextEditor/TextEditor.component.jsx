@@ -3,13 +3,12 @@ import { motion } from "framer-motion";
 import { useCallback, useContext , useEffect, useRef, useState } from "react";
 import {DirectoryContext} from "../../store/directory.context";
 import { ChromePicker } from 'react-color';
-import useHttp from "../../hooks/useHttps";
 import CodeEditor from "../CodeEditor/CodeEditor.component";
+import { NotificationContext } from "../../store/notification.context";
 
-const TextEditor = ()=>{
-    const {directoryOptions} = useContext(DirectoryContext);
-    const codeInput = "function check(){console.log('Working')} check();";
-    const {sendRequest } = useHttp(codeInput);
+const TextEditor = (props)=>{
+    const {directoryOptions , setDirectoryOption} = useContext(DirectoryContext);
+    const {setNotification} = useContext(NotificationContext);
     const [showStyleMenu , setShowStyleMenu] = useState(false);
     const [codeEditorStyle , setCodeEditorStyle] = useState({
         size: 19,
@@ -39,7 +38,8 @@ const TextEditor = ()=>{
         {name : '🐿️ GoLang' , value : 'go'},
         {name : '🤖 C#' , value : 'cs'},
         {name : '🍀 Node Js' , value : 'js'},
-    ]
+    ];
+    const langaugeRef = useRef('');
 
     const variants = {
         initial: { x: 200, opacity: 0 },
@@ -97,7 +97,17 @@ const TextEditor = ()=>{
 
 
     const runCode = ()=>{
-        sendRequest();
+        if(!langaugeRef.current.value){
+            setNotification({status : "error" , message : "Must select a language"});
+            return;
+        }
+        setDirectoryOption(prevState =>{
+            return {
+                ...prevState,
+                selectedLanguage : langaugeRef.current.value,
+                run : true
+            }
+        });
     }
 
 
@@ -157,9 +167,9 @@ const colorElement = menuVisibilty.color &&
         <motion.div className="text-editor" variants={variants} initial="initial" animate="animate">
             <center className="flexBasis">
                 <h5 className="text-editor-header">
-                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code">🎙️ Say to code</motion.button>
-                    <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language">
-                        <option>Select a language</option>
+                    {/* <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code">🎙️ Say to code</motion.button> */}
+                    <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language" ref={langaugeRef}>
+                        <option value=''>Select a language</option>
                         {
                             laguages.map(lang => {
                                 return <option key={lang.value} value={lang.value}>&nbsp; {lang.name}</option>
