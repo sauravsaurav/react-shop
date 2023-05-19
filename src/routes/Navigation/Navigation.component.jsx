@@ -91,6 +91,8 @@ const Navigation = ()=>{
                                     </motion.span>
                                     <div className="author">
                                         Design and developed by <a className="special" href="mailto:someone@mozilla.org">Saurav Kumar</a>
+                                        <br/>
+                                        V 0.0.1
                                     </div>
                                     {
                                         currentUser && 

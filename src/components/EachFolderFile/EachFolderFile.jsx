@@ -11,8 +11,6 @@ const EachFolderFile = (props)=>{
     const {codedFile , setCodedFile } = useContext(CodeContext);
     const { name = "" , content="The folder is empty!", isRoot=false, path = "" } = props;
     const {setNotification} = useContext(NotificationContext);
-
-
     const saveLocal = useCallback(()=>{
         localStorage.setItem("directoryOption",JSON.stringify(directoryOptions));
         localStorage.setItem("codedFiles", JSON.stringify(codedFile));

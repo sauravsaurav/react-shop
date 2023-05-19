@@ -12,7 +12,6 @@ import { NotificationContext } from "../../store/notification.context";
 
 
 const Signin = ()=>{
-    console.log("RUNNING signin form");
     const email = useRef('');
     const password = useRef('');
     const [emailError , setEmailError] = useState(false);
@@ -25,7 +24,7 @@ const Signin = ()=>{
         try{
             const {user} = await signInWithGooglePopup();
             await createUserDocumentFromAuth(user);
-            setNotification({status : "success" , message : "User is signed in!"});
+            setNotification({status : "success" , message : "Welcome"});
         }
         catch(err){
             setNotification({status : "error" , message : err.message});
@@ -34,7 +33,6 @@ const Signin = ()=>{
 
 
     const signInSubmitHandler =  (e) => {
-        console.log("Running signInSubmitHandler");
         e.preventDefault();
         if(!emailValidator(email.current.value)) setEmailError(true);
         else setEmailError(false);
@@ -45,9 +43,10 @@ const Signin = ()=>{
         setIsLoading(true);
         signInAuthUserWithEmailAndPassword(email.current.value , password.current.value)
         .then(({user}) => {
+            console.log(user);
             resetInputs([email , password]);
             setIsLoading(false);
-            setNotification({status : "success" , message : "User is signed in!"});
+            setNotification({status : "success" , message : "Welcome"});
         })
         .catch(err => {
             console.log(err);
@@ -70,7 +69,7 @@ const Signin = ()=>{
                 </div>
                 <div className={`form-group ${passwordError ? 'field-error' : ''}`}>
                     <label>Password *</label>
-                    <input type="password" placeholder="your password" ref={password}/>
+                    <input autoComplete={true} type="password" placeholder="your password" ref={password}/>
                     {passwordError && <span className="error">* Please provide a strong password</span>}
                 </div>
                 <Button buttonType="inverse" type="submit">

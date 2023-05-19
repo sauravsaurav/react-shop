@@ -11,7 +11,8 @@ import { CodeContext } from "../../store/code.context";
 const TextEditor = (props)=>{
     const {directoryOptions , setDirectoryOption} = useContext(DirectoryContext);
     const {codedFile } = useContext(CodeContext);
-    const {setNotification} = useContext(NotificationContext);
+    const {setNotification} = useContext(NotificationContext);  
+    const [isSaving , setIsSaving] = useState(false);
     const [showStyleMenu , setShowStyleMenu] = useState(false);
     const [codeEditorStyle , setCodeEditorStyle] = useState({
         size: 19,
@@ -114,9 +115,13 @@ const TextEditor = (props)=>{
     }
 
     const saveToServer = ()=>{
+        setIsSaving(true);
         updateCodeDetails(directoryOptions.uid, JSON.stringify(directoryOptions.directories), codedFile)
-        .then(res=> console.log(res))
-        .catch(err => console.log(err));
+        .then(res=> {
+            setIsSaving(false);
+            setNotification({status : "success" , message: "Code is saved!"});
+        })
+        .catch(err => setIsSaving(false));
     }
 
 
@@ -185,7 +190,10 @@ const colorElement = menuVisibilty.color &&
                             })
                         }
                     </motion.select>
-                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save" onClick={saveToServer}>✔️ Save</motion.button>
+                    <motion.button className="commonCodeButton"  initial={{scale:1}} whileTap={{scale:0.8}} title="save" onClick={saveToServer}>
+                       {!isSaving && <span>✔️ Save</span>} 
+                       {isSaving && <span>Saving....</span>}
+                    </motion.button>
                     <motion.button onClick={runCode} className="commonCodeButton runButton" title="Run your code" whileTap={{scale:0.8}}>▶</motion.button>
                     <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} onClick={toggleStyleMenu} title="style">🫧 Style</motion.button>
                     {

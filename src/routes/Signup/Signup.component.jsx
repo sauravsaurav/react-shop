@@ -70,12 +70,12 @@ const Signup = ()=>{
                 </div>
                 <div className={`form-group ${passwordError ? 'field-error' : ''}`}>
                     <label>Password * </label>
-                    <input type="password" placeholder="your password" ref={password}/>
+                    <input autoComplete={true} type="password" placeholder="your password" ref={password}/>
                     {passwordError && <span className="error">* Please provide a strong password</span>}
                 </div>
                 <div className={`form-group ${passwordError ? 'field-error' : ''}`}>
                     <label>Confirm Password *</label>
-                    <input type="password" placeholder="type same password again" ref={confirmPassword}/>
+                    <input autoComplete={true} type="password" placeholder="type same password again" ref={confirmPassword}/>
                     {confirmPasswordError && <span className="error">* Must match with the above password</span>}
                 </div>
                 <Button buttonType="inverse" type="submit" disabled={isLoading}>
