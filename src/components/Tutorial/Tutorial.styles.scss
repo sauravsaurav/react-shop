@@ -1,0 +1,107 @@
+.tutorial-container{
+    width: 100vw;
+    height : 100vh;
+    position: fixed;
+    top : 0;
+    left : 0;
+    z-index: 9999999999999 !important;
+    backdrop-filter: blur(10px);
+    
+
+    .overlay{
+        position: fixed;
+        top : 0;
+        left : 0;
+        width : 100vw;
+        height : 100vh;
+        /* Add the blur effect */
+        z-index: 99999999999999 !important;
+        background-color: rgba(13, 13, 13, 0.556);
+        
+    }
+
+    .modal{
+        width : 70vw;
+        height : 70vh;
+        margin : 5%  auto;
+        background : white;
+        z-index: 999999999999999 !important;
+        position: relative;
+        overflow: hidden;
+        overflow-y: auto;
+        border-radius: 10px;
+       
+
+        .dont-show-btn{
+            background: dodgerblue;
+            color : white !important;
+            font-weight: bolder;
+            margin : 10px 0px;
+        }
+
+
+        .button-container{
+            position: absolute;
+            z-index: 9999999999999999999;
+            bottom: 2%;
+            width: 100%;
+            text-align: center;
+            button{
+                all : unset;
+            }
+        }
+
+        .slider{
+            display: flex;
+            justify-content: space-between;
+            width:100%;
+            height : 100%;
+            margin:30px auto;
+            img{
+                width : 100%;
+                height : 100%;
+            }
+            ul {
+                list-style-type: none !important;
+                margin-top:10px;
+                li{
+                    font-family: Arial;
+                }
+            }
+        }
+
+
+
+        .left,.right{
+            flex:1;
+            width: 100%;
+        }
+        .right{
+            margin-left:10px;
+            flex : 0.5;
+            background: dodgerblue;
+            padding: 0px 10px;
+            font-size:0.8vw;
+            font-weight: bolder;
+            color : white;
+            h3{
+                font-family: Arial;
+            }
+        }
+        
+
+        .close-buttton{
+            all : unset;
+            position: fixed;
+            top : 3%;
+            background: orange;
+            height : 20px;
+            width : 20px;
+            padding : 10px;
+            text-align: center;
+            left : 50%;
+            border-radius:50px;
+            cursor: pointer;
+        }
+    }
+}

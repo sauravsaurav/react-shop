@@ -8,7 +8,7 @@ import { NotificationContext } from "../../store/notification.context";
 import { updateCodeDetails } from "../../utils/firebase";
 import { CodeContext } from "../../store/code.context";
 import React from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 
 const TextEditor = (props)=>{
@@ -23,18 +23,18 @@ const TextEditor = (props)=>{
         weight : 'bolder',
         color : '#D8E3E3'
     });
-    const {
-        transcript,
-        listening,
-        interimTranscript,
-        resetTranscript,
-        browserSupportsSpeechRecognition
-      } = useSpeechRecognition();
-        console.log(transcript);
+    // const {
+    //     transcript,
+    //     listening,
+    //     interimTranscript,
+    //     resetTranscript,
+    //     browserSupportsSpeechRecognition
+    //   } = useSpeechRecognition();
+    //     console.log(transcript);
     
-        if (!browserSupportsSpeechRecognition) {
-            console.log("BROWSER DOESNT SUPPORT SPEECH RECOGNITION");
-          }
+    //     if (!browserSupportsSpeechRecognition) {
+    //         console.log("BROWSER DOESNT SUPPORT SPEECH RECOGNITION");
+    //       }
     const [menuVisibilty , setMenuVisibility] = useState({
         size : false,
         family : false,
@@ -155,22 +155,22 @@ const TextEditor = (props)=>{
      
 
     
-      useEffect(() => {
-        if (!interimTranscript) {
-          resetTranscript(); // Reset the transcript when there is no speech input
-        }
-      }, [interimTranscript, resetTranscript]);
+    //   useEffect(() => {
+    //     if (!interimTranscript) {
+    //       resetTranscript(); // Reset the transcript when there is no speech input
+    //     }
+    //   }, [interimTranscript, resetTranscript]);
       
 
-    const toggleSpeech = ()=>{
-        if(listening){
-            SpeechRecognition.stopListening();
-            resetTranscript();
-        }
-        else{
-            SpeechRecognition.startListening({continuous:true});
-        }
-    }
+    // const toggleSpeech = ()=>{
+    //     if(listening){
+    //         SpeechRecognition.stopListening();
+    //         resetTranscript();
+    //     }
+    //     else{
+    //         SpeechRecognition.startListening({continuous:true});
+    //     }
+    // }
    
 
 
@@ -230,7 +230,11 @@ const colorElement = menuVisibilty.color &&
         <motion.div className="text-editor" variants={variants} initial="initial" animate="animate">
             <center className="flexBasis">
                 <h5 className="text-editor-header">
-                    <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code" onClick={toggleSpeech}>🎙️ Say to code</motion.button>
+                    {/* {
+                        browserSupportsSpeechRecognition && 
+                        <motion.button className="commonCodeButton" initial={{scale:1}} whileTap={{scale:0.8}} title="Speech to code" onClick={toggleSpeech}>🎙️ Say to code</motion.button>
+                    } */}
+                    
                     <motion.select className="commonCodeButton" initial={{scale:1}} title="Select a language" ref={langaugeRef}>
                         <option value=''>Select a language</option>
                         {
