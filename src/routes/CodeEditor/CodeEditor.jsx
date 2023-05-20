@@ -2,6 +2,7 @@ import "./CodeEditor.scss";
 import Directory from "../../components/Directory/Directory.component";
 import TextEditor from "../../components/TextEditor/TextEditor.component";
 import Output from "../../components/Output/Output.component";
+import { useEffect } from "react";
 
 const CodeEditor = () => {
     return (
