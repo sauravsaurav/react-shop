@@ -124,6 +124,22 @@ const TextEditor = (props)=>{
         .catch(err => setIsSaving(false));
     }
 
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+          if (event.ctrlKey && event.key === 's') {
+            event.preventDefault();
+            saveToServer();
+            // Add your desired functionality here
+          }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+          window.removeEventListener('keydown', handleKeyDown);
+        };
+      }, []);
+
 
     const familyElement = menuVisibilty.family && 
                                 <motion.ul className="styleContainer" variants={variants2} animate="animate" initial="initial">
