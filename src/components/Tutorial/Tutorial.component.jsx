@@ -2,8 +2,9 @@ import "./Tutorial.styles.scss";
 import { motion } from "framer-motion";
 
 const Tutorial = (props)=>{
+    let name = JSON.parse(localStorage.getItem('directoryOption')).displayName ? JSON.parse(localStorage.getItem('directoryOption')).displayName : "user";
     const sliderOptions = [
-        {id : 1 , image : '1.png', points: [`Welcome ${JSON.parse(localStorage.getItem('directoryOption')).displayName}, let's have a quick overview. Scroll down for more info.`]},
+        {id : 1 , image : '1.png', points: [`Welcome ${name}, let's have a quick overview. Scroll down for more info.`]},
         {id : 2, image : '2.gif', points : [
                 'You can create new folder by right clicking on the folder.',
                 'You can delete, create another folder , create files. ',
