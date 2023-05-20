@@ -45,7 +45,7 @@ const CodeEditor = ({fileToCode, style})=>{
 
     const inputChangeHandler = useCallback((e)=>{
         e.preventDefault();
-        if(e.keyCode === 219 || e.key === "{"){
+        if(e.key === "{"){
             const start = e.target.selectionStart; 
             const end = e.target.selectionEnd; 
             const value = e.target.value; 
@@ -70,7 +70,7 @@ const CodeEditor = ({fileToCode, style})=>{
             code.current.selectionStart = code.current.selectionEnd = start;
             saveLocal();
         }
-        else if(e.keyCode === 57 || e.key === "("){
+        else if(e.key === "("){
             const start = e.target.selectionStart; 
             const end = e.target.selectionEnd; 
             const value = e.target.value; 
@@ -87,6 +87,31 @@ const CodeEditor = ({fileToCode, style})=>{
                     return prevState.map(item => {
                         if (item.id === fileToCode.id) {
                           return { ...item, value:value.substring(0, start) + ')' + value.substring(end)};
+                        }
+                        return item;
+                      });
+                })
+            }
+            code.current.selectionStart = code.current.selectionEnd = start; 
+            saveLocal();
+        }
+        else if(e.key === "["){
+            const start = e.target.selectionStart; 
+            const end = e.target.selectionEnd; 
+            const value = e.target.value; 
+            e.target.selectionStart = e.target.selectionEnd = start; 
+            code.current.value=value.substring(0, start) + ']' + value.substring(end);
+           
+            let tempCoded = [...codedFile];
+            tempCoded = tempCoded.find(c => c.id === fileToCode.id);
+            if(!tempCoded){
+                const updatedData = [...codedFile , {id : fileToCode.id , value :value.substring(0, start) + ']' + value.substring(end) }];
+                setCodedFile(updatedData);
+            }else{
+                setCodedFile(prevState => {
+                    return prevState.map(item => {
+                        if (item.id === fileToCode.id) {
+                          return { ...item, value:value.substring(0, start) + ']' + value.substring(end)};
                         }
                         return item;
                       });
