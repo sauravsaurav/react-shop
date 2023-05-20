@@ -100,7 +100,7 @@ const TextEditor = (props)=>{
   
 
 
-    const runCode = ()=>{
+    const runCode = useCallback(()=>{
         if(!langaugeRef.current.value){
             setNotification({status : "error" , message : "Must select a language"});
             return;
@@ -112,9 +112,9 @@ const TextEditor = (props)=>{
                 run : true
             }
         });
-    }
+    },[setNotification, setDirectoryOption]);
 
-    const saveToServer = ()=>{
+    const saveToServer = useCallback(()=>{
         setIsSaving(true);
         updateCodeDetails(directoryOptions.uid, JSON.stringify(directoryOptions.directories), codedFile)
         .then(res=> {
@@ -122,13 +122,18 @@ const TextEditor = (props)=>{
             setNotification({status : "success" , message: "Code is saved!"});
         })
         .catch(err => setIsSaving(false));
-    }
+    },[codedFile,directoryOptions,setNotification]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
           if (event.ctrlKey && event.key === 's') {
             event.preventDefault();
             saveToServer();
+            // Add your desired functionality here
+          }
+          if (event.ctrlKey && event.key === 'r') {
+            event.preventDefault();
+            runCode();
             // Add your desired functionality here
           }
         };
@@ -138,7 +143,7 @@ const TextEditor = (props)=>{
         return () => {
           window.removeEventListener('keydown', handleKeyDown);
         };
-      }, []);
+      }, [saveToServer , runCode]);
 
 
     const familyElement = menuVisibilty.family && 
