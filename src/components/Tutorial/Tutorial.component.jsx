@@ -32,16 +32,6 @@ const Tutorial = (props)=>{
                 'The output will be shown under the right bottom section',
             ]
         },
-        {id : 4, image : '4.gif', points : [
-                    'You can start coding , once you select the file (Click on the file).',
-                    'The code editor will automatically detect some of the closing pairs such " , {} ,[].',
-                    'To get extra space , press tab.',
-                    'To comment a line of code , press ctrl + /.',
-                    'To save the code , press ctrl + s or click the save button.',
-                    'To run the code , press ctrl + r or click the run button.',
-                    'NOTE : IF YOU DID NOT SAVED THE CODE AND REFRESH THE CODE WILL BE GONE. Make sure to save it, before exit.'
-                ]
-        },
         {
             id : 5, image : '5.png', points : [
                 'Hi there! Saurav here. This code editor is free to use as this moment. I am using free open source api, which is free right now. As soon as it becomes premium i will switch to my own version of api, which will be bit fast.As of now , it is free to use. So feel free to use and share with your friends. Happy Coding!'
